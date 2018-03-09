@@ -32,6 +32,9 @@ export default (async function registerForPushNotificationsAsync() {
       token: {
         value: token,
       },
+      user: {
+        username: 'Andrew',
+      }
     }),
   });
 });
