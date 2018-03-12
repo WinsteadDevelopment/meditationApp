@@ -7,15 +7,25 @@ import {
   Text,
   TouchableOpacity,
   View,
+  AsyncStorage,
 } from 'react-native';
 import { WebBrowser } from 'expo';
-
+import axios from 'axios';
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
+  componentWillMount() {
+    AsyncStorage.getItem('Token')
+      .then(token => {
+        return axios.get('http://af4ec08e.ngrok.io/protected', { headers: { authorization: JSON.parse(token) } })
+      })
+      .then(res => console.log(res))
+      .catch(err => console.error(err));
+  }
 
   render() {
     return (

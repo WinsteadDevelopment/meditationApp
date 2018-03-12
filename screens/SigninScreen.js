@@ -1,7 +1,8 @@
 import React from 'react';
-import { TextInput, View, Text } from 'react-native';
+import { TextInput, View, Text, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
+import axios from 'axios';
 
 export default class SigninScreen extends React.Component {
   constructor() {
@@ -14,9 +15,16 @@ export default class SigninScreen extends React.Component {
   }
 
   login() {
-    console.log(this.state.text);
-    this.props.navigation.navigate('Main')
+    console.log(this.state);
+    axios.post('http://af4ec08e.ngrok.io/signup', { username: this.state.username, password: this.state.password })
+      .then(res => {
+        AsyncStorage.setItem('Token', JSON.stringify(res.data));
+        this.props.navigation.navigate('Main');
+      })
+      .catch(err => console.error(err));
   }
+
+
   
   render() {
     return (
