@@ -6,6 +6,10 @@ import axios from 'axios';
 import { server } from '../globalVars';
 
 export default class SignupScreen extends React.Component {
+  static navigationOptions = {
+    header: null,
+  };
+  
   constructor() {
     super();
     this.state = {
@@ -27,7 +31,7 @@ export default class SignupScreen extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
         <Text>Username:</Text>
         <TextInput
           style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
@@ -52,6 +56,10 @@ export default class SignupScreen extends React.Component {
         <Button
           title="Create account"
           onPress={this.signup}
+        />
+        <Button
+          title="Sign in with existing account"
+          onPress={() => this.props.navigation.navigate('Signin')}
         />
       </View>
     )
