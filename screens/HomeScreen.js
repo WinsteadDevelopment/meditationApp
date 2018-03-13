@@ -23,7 +23,7 @@ export default class HomeScreen extends React.Component {
       .then(token => {
         return axios.get('http://af4ec08e.ngrok.io/protected', { headers: { authorization: JSON.parse(token) } })
       })
-      .then(res => console.log(res))
+      .then(res => {/*console.log(res)*/})
       .catch(err => console.error(err));
   }
 
@@ -44,16 +44,6 @@ export default class HomeScreen extends React.Component {
       </View>
     );
   }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
 }
 
 const styles = StyleSheet.create({
