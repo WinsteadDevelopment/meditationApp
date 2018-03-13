@@ -27,6 +27,7 @@ export default class SignupScreen extends React.Component {
         this.props.navigation.navigate('Main');
       })
       .catch(err => {
+        console.log(err);
         alert('Sorry, there was a problem. Please try again');
       });
   }
