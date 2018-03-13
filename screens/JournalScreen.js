@@ -28,7 +28,7 @@ export default class JournalScreen extends React.Component {
             authorization: JSON.parse(token),
             'Content-Type': 'application/json',
           },
-          data: { entry: this.state.entry },
+          data: { entry: this.state.entry, date: this.props.navigation.state.params.date},
         });
       })
       .catch((err) => {
