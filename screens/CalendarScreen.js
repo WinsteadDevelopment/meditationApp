@@ -50,10 +50,6 @@ export default class CalendarScreen extends React.Component {
   render() {
     return (
       <View>
-        <Button
-          title="See journal entry page"
-          onPress={() => this.props.navigation.navigate('Journal')}
-        />
         <Calendar
           // Initially visible month. Default = Date()
           current={'2018-03-01'}
@@ -100,10 +96,10 @@ export default class CalendarScreen extends React.Component {
                 title="Write a journal entry for this day"
                 onPress={this.goToJournal}
               />
-              <TouchableHighlight
-                onPress={this.toggleModal}>
-                <Text>Hide Modal</Text>
-              </TouchableHighlight>
+              <Button
+                title="Hide"
+                onPress={this.toggleModal}
+              />
             </View>
           </View>
         </Modal>
