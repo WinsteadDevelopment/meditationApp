@@ -12,6 +12,7 @@ import {
 import { WebBrowser } from 'expo';
 import axios from 'axios';
 import { MonoText } from '../components/StyledText';
+import { server } from '../globalVars';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -21,7 +22,7 @@ export default class HomeScreen extends React.Component {
   componentWillMount() {
     AsyncStorage.getItem('Token')
       .then(token => {
-        return axios.get('http://af4ec08e.ngrok.io/protected', { headers: { authorization: JSON.parse(token) } })
+        return axios.get(`${server}/protected`, { headers: { authorization: JSON.parse(token) } })
       })
       .then(res => console.log(res))
       .catch(err => console.error(err));
@@ -144,3 +145,4 @@ const styles = StyleSheet.create({
     color: '#2e78b7',
   },
 });
+ 
