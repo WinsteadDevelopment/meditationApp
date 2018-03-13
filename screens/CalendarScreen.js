@@ -31,18 +31,20 @@ export default class CalendarScreen extends React.Component {
     super();
     this.state = {
       modalVisible: false,
+      date: '',
     };
     this.toggleModal = this.toggleModal.bind(this);
     this.goToJournal = this.goToJounral.bind(this);
   }
 
-  toggleModal() {
+  toggleModal(date) {
+    this.setState({ date });
     this.setState({ modalVisible: !this.state.modalVisible });
   }
 
   goToJounral() {
     this.toggleModal();
-    this.props.navigation.navigate('Journal');
+    this.props.navigation.navigate('Journal', { date: this.state.date });
   }
 
   render() {
@@ -60,7 +62,7 @@ export default class CalendarScreen extends React.Component {
           // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
           maxDate={'2020-01-01'}
           // Handler which gets executed on day press. Default = undefined
-          onDayPress={this.toggleModal}
+          onDayPress={(date) => this.toggleModal(date)}
           // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
           monthFormat={'yyyy MM'}
           // Handler which gets executed when visible month changes in calendar. Default = undefined
