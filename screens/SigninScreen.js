@@ -23,10 +23,16 @@ export default class SigninScreen extends React.Component {
   login() {
     axios.post(`${server}/signin`, { username: this.state.username, password: this.state.password })
       .then(res => {
-        AsyncStorage.setItem('Token', JSON.stringify(res.data));
-        this.props.navigation.navigate('Main');
+        if (res.data !== 'Sorry, that password was incorrect') {
+          AsyncStorage.setItem('Token', JSON.stringify(res.data));
+          this.props.navigation.navigate('Main');
+        } else {
+          alert(res.data);
+        }
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        alert('Sorry, that username/password combination was incorrect');
+      })
   }
 
   render() {
