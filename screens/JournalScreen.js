@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, TextInput, AsyncStorage } from 'react-native';
+import { ScrollView, TextInput, AsyncStorage, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import axios from 'axios';
 import { server } from '../globalVars';
@@ -9,8 +9,8 @@ export default class JournalScreen extends React.Component {
     header: null,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       entry: '',
     };
@@ -37,9 +37,14 @@ export default class JournalScreen extends React.Component {
   }
 
   render() {
+    const date = this.props.navigation.state.params.date;
     return (
       <ScrollView>
+        <View style={{ flex: 1, alignItems: 'center' }} >
+          <Text style={{ paddingTop: 40, fontSize: 20 }}>Journal entry for {date.dateString}</Text>
+        </View>
         <TextInput
+          multiline={true}
           style={{ height: 400 }}
           placeholder="Write your journal entry here"
           onChangeText={(entry) => this.setState({ entry })}
