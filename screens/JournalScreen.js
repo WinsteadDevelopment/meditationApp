@@ -21,15 +21,15 @@ export default class JournalScreen extends React.Component {
     console.log(this.state.entry);
     AsyncStorage.getItem('Token')
       .then(token =>{
-        return axios.post(`${server}/journal`, 
-          {headers: 
-            {
-              authorization: JSON.parse(token)
-            }, 
-            data: {
-              entry: this.state.entry
-            }
-          })
+        return axios({
+          method: 'post',
+          url: `${server}/journal`,
+          headers: {
+            authorization: JSON.parse(token),
+            'Content-Type': 'application/json',
+          },
+          data: { entry: this.state.entry },
+        });
       })
       .catch((err) => {
         console.error(err);
