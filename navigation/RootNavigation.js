@@ -5,6 +5,7 @@ import { StackNavigator } from 'react-navigation';
 import MainTabNavigator from './MainTabNavigator';
 import Signin from '../screens/SigninScreen';
 import Signup from '../screens/SignupScreen';
+import JournalScreen from '../screens/JournalScreen';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 const RootStackNavigator = StackNavigator(
@@ -17,6 +18,9 @@ const RootStackNavigator = StackNavigator(
     },
     Main: {
       screen: MainTabNavigator,
+    },
+    Journal: {
+      screen: JournalScreen,
     },
   },
   {
@@ -53,6 +57,6 @@ export default class RootNavigator extends React.Component {
   }
 
   _handleNotification = ({ origin, data }) => {
-    console.log(`Push notification ${origin} with data: ${JSON.stringify(data)}`);
+    // console.log(`Push notification ${origin} with data: ${JSON.stringify(data)}`);
   };
 }
