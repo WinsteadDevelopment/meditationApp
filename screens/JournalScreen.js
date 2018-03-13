@@ -1,6 +1,8 @@
 import React from 'react';
-import { ScrollView, TextInput } from 'react-native';
+import { ScrollView, TextInput, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements';
+import axios from 'axios';
+import { server } from '../globalVars';
 
 export default class JournalScreen extends React.Component {
   static navigationOptions = {
@@ -17,6 +19,21 @@ export default class JournalScreen extends React.Component {
 
   submitEntry() {
     console.log(this.state.entry);
+    AsyncStorage.getItem('Token')
+      .then(token =>{
+        return axios.post(`${server}/journal`, 
+          {headers: 
+            {
+              authorization: JSON.parse(token)
+            }, 
+            data: {
+              entry: this.state.entry
+            }
+          })
+      })
+      .catch((err) => {
+        console.error(err);
+      })
   }
 
   render() {
