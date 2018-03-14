@@ -9,6 +9,7 @@ import {
   View,
   AsyncStorage,
 } from 'react-native';
+import { Button } from 'react-native-elements';
 import { WebBrowser } from 'expo';
 import axios from 'axios';
 import { MonoText } from '../components/StyledText';
@@ -31,9 +32,18 @@ export default class HomeScreen extends React.Component {
   };
   constructor(props) {
     super(props);
+    const year = new Date().getFullYear();
+    let month = new Date().getMonth() + 1;
+    month = month > 9 ? month : `0${month}`;
+    const day = new Date().getDate();
+    const dateString = `${year}-${month}-${day}`;
     this.state = {
       completions: starImages[0],
+      date: { dateString } ,
     };
+    this.goToJournal = this.goToJournal.bind(this);
+    this.goToTodo = this.goToTodo.bind(this);
+    
   }
   componentWillMount() {
     AsyncStorage.getItem('Token')
@@ -47,6 +57,14 @@ export default class HomeScreen extends React.Component {
       .catch(err => console.error(err));
   }
 
+  goToJournal() {
+    this.props.navigation.navigate('Journal', { date: this.state.date});
+  }
+  
+  goToTodo() {
+    this.props.navigation.navigate('Todo', { date: this.state.date});
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -57,9 +75,17 @@ export default class HomeScreen extends React.Component {
               style={styles.welcomeImage}
             />
           </View>
-            <Text style={styles.getStartedText}>
-              Daily affirmation: You're awesome!
-            </Text>
+          <Text style={styles.getStartedText}>
+            Daily affirmation: You're awesome!
+          </Text>
+          <Button
+            title="Write a journal entry for today"
+            onPress={this.goToJournal}
+          />
+          <Button
+            title="See your to do list for today"
+            onPress={this.goToTodo}
+          />
         </ScrollView>
       </View>
     );

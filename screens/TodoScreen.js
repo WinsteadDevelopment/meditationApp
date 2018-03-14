@@ -23,6 +23,7 @@ export default class TodoScreen extends React.Component {
   }
 
   componentWillMount() {
+    console.log(this.state.date)
     AsyncStorage.getItem('Token')
       .then(token => {
         return axios.get(`${server}/todo`, { headers: { Authorization: JSON.parse(token), date: this.state.date } });
@@ -65,7 +66,7 @@ export default class TodoScreen extends React.Component {
     const todoList = this.state.todo.map((element, i) => (<Text key={element}>{element}</Text>));
     return (
       <ScrollView contentContainerStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ paddingBottom: 20 }}>To do:</Text>
+        <Text style={{ paddingBottom: 20 }}>To do list for {this.state.date}:</Text>
         {todoList}
         <Button
           title="Create new item"
