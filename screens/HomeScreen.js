@@ -42,7 +42,7 @@ export default class HomeScreen extends React.Component {
       })
       .then(res => {
         console.log('response: ', res.data);
-        this.state.completions = starImages[JSON.parse(res.data)];
+        this.setState({completions: starImages[JSON.parse(res.data)]});
       })
       .catch(err => console.error(err));
   }
