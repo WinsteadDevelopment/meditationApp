@@ -14,17 +14,37 @@ import axios from 'axios';
 import { MonoText } from '../components/StyledText';
 import { server } from '../globalVars';
 
+const starImages = [
+  require('../assets/images/0star.png'),
+  require('../assets/images/1star.png'),
+  require('../assets/images/2star.png'),
+  require('../assets/images/3star.png'),
+  require('../assets/images/4star.png'),
+  require('../assets/images/5star.png'),
+  require('../assets/images/6star.png'),
+  require('../assets/images/7star.png'),
+  require('../assets/images/8star.png')
+]
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      completions: starImages[0],
+    };
+  }
   componentWillMount() {
     AsyncStorage.getItem('Token')
       .then(token => {
-        return axios.get(`${server}/protected`, { headers: { authorization: JSON.parse(token) } })
+        return axios.get(`${server}/userCompletions`, { headers: { authorization: JSON.parse(token) } })
       })
-      .then(res => {/*console.log(res)*/})
+      .then(res => {
+        console.log('response: ', res.data);
+        this.setState({completions: starImages[JSON.parse(res.data)]});
+      })
       .catch(err => console.error(err));
   }
 
@@ -34,7 +54,7 @@ export default class HomeScreen extends React.Component {
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             <Image
-              source={require('../assets/images/8star.png')}
+              source={this.state.completions}
               style={styles.welcomeImage}
             />
           </View>
