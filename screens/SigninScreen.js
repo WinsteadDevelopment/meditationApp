@@ -45,6 +45,8 @@ export default class SigninScreen extends React.Component {
           onChangeText={(username) => this.setState({ username })}
           placeholder="username"
           value={this.state.username}
+          autoCapitalize="none"
+          autoCorrect={false}
         />
         <Text>Password:</Text>
         <TextInput
@@ -52,6 +54,9 @@ export default class SigninScreen extends React.Component {
           onChangeText={(password) => this.setState({ password })}
           placeholder="password"
           value={this.state.password}
+          autoCapitalize="none"
+          autoCorrect={false}
+          secureTextEntry={true}
         />
         <Button 
           title="Sign in"
