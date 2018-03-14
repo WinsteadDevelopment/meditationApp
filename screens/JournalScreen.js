@@ -18,7 +18,6 @@ export default class JournalScreen extends React.Component {
   }
 
   submitEntry() {
-    console.log(this.state.entry);
     AsyncStorage.getItem('Token')
       .then(token =>{
         return axios({
@@ -30,6 +29,9 @@ export default class JournalScreen extends React.Component {
           },
           data: { entry: this.state.entry, date: this.props.navigation.state.params.date},
         });
+      })
+      .then(response =>{
+        console.log(response.data);
       })
       .catch((err) => {
         console.error(err);
