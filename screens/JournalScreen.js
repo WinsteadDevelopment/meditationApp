@@ -18,7 +18,6 @@ export default class JournalScreen extends React.Component {
   }
 
   submitEntry() {
-    console.log(this.state.entry);
     AsyncStorage.getItem('Token')
       .then(token =>{
         return axios.post(`${server}/journal`, 
