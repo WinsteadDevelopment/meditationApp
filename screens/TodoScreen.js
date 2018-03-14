@@ -71,6 +71,10 @@ export default class TodoScreen extends React.Component {
           title="Create new item"
           onPress={this.toggleModal}
         />
+        <Button
+          title="Go home"
+          onPress={() => this.props.navigation.navigate('Main')}
+        />
         <Modal
           animationType="slide"
           transparent={false}
@@ -89,10 +93,6 @@ export default class TodoScreen extends React.Component {
               <Button
                 title="Close"
                 onPress={this.toggleModal}
-              />
-              <Button
-                title="Go home"
-                onPress={() => this.props.navigation.navigate('Main')}
               />
             </View>
           </View>
