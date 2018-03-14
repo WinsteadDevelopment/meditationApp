@@ -55,6 +55,7 @@ export default class SignupScreen extends React.Component {
           onChangeText={(password) => this.setState({ password })}
           placeholder="password"
           value={this.state.password}
+          secureTextEntry={true}
         />
         <Button
           title="Create account"
