@@ -1,7 +1,8 @@
 import React from 'react';
-import { ScrollView, Text, TextInput, Modal, View, AsyncStorage } from 'react-native';
+import { ScrollView, Text, TextInput, Modal, View, AsyncStorage, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
-import { NavigationActions } from 'react-navigation'
+import { NavigationActions } from 'react-navigation';
+import RoundCheckbox from 'rn-round-checkbox';
 import axios from 'axios';
 import { server } from '../globalVars';
 
@@ -17,9 +18,11 @@ export default class TodoScreen extends React.Component {
       input: '',
       modalVisible: false,
       date: this.props.navigation.state.params.date.dateString,
+      isSelected: true
     };
     this.createTodo = this.createTodo.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.pressCheck = this.pressCheck.bind(this);
   }
 
   componentWillMount() {
@@ -62,38 +65,63 @@ export default class TodoScreen extends React.Component {
       .catch((err) => console.log(err));
   }
 
+  pressCheck(bool) {
+    this.setState({ [`isSelected${i}`]: !this.state[`isSelected${i}`] });
+    // make a request to update the completion status of this item in the database
+  }
+
   render() {
-    const todoList = this.state.todo.map((element, i) => (<Text key={element}>{element}</Text>));
+    const todoList = this.state.todo.map((element, i) => {
+      this.state[`isSelected${i}`] = this.state[`isSelected${i}`] || false;
+      return (
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <RoundCheckbox
+            size={24}
+            checked={this.state[`isSelected${i}`]}
+            onValueChange={(newValue) => this.pressCheck(newValue)}
+            style={styles.checkBox}
+          />
+          <Text key={element} style={styles.todo}>{element}</Text>
+        </View>
+      );
+    });
     return (
-      <ScrollView contentContainerStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ paddingBottom: 20 }}>To do list for {this.state.date}:</Text>
-        {todoList}
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.todoContainer}>
+          <Text style={styles.headingText}>To do list for {this.state.date}:</Text>
+          {todoList}
+        </View>
         <Button
           title="Create new item"
           onPress={this.toggleModal}
+          buttonStyle={styles.button}
         />
         <Button
           title="Go home"
           onPress={() => this.props.navigation.navigate('Main')}
+          buttonStyle={styles.button}
         />
         <Modal
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}
         >
-          <View style={{ marginTop: 22, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={styles.modalContainer}>
             <View>
               <TextInput
                 placeholder="Enter your task"
                 onChangeText={(text) => this.setState({ input: text })}
+                style={styles.eventInput}
               />
               <Button
                 title="Save event"
                 onPress={this.createTodo}
+                buttonStyle={styles.button}
               />
               <Button
                 title="Close"
                 onPress={this.toggleModal}
+                buttonStyle={styles.button}
               />
             </View>
           </View>
@@ -103,3 +131,38 @@ export default class TodoScreen extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    marginTop: 50
+  },
+  eventInput: {
+    paddingBottom: 30,
+    fontSize: 30
+  },
+  button: {
+    backgroundColor: 'blue',
+    borderRadius: 5,
+    marginBottom: 5
+  },
+  headingText: {
+    fontSize: 30,
+    paddingBottom: 20
+  },
+  modalContainer: {
+    marginTop: 22,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  todoContainer: {
+    height: 'auto',
+    minHeight: 400,
+    // alignItems: 'center'
+  },
+  todo: {
+    fontSize: 18
+  },
+})

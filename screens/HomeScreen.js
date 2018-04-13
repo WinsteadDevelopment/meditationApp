@@ -35,15 +35,15 @@ export default class HomeScreen extends React.Component {
   };
   constructor(props) {
     super(props);
-    this.state = {
-      completions: starImages[0],
-      date: { dateString } ,
-    };
     const year = new Date().getFullYear();
     let month = new Date().getMonth() + 1;
     month = month > 9 ? month : `0${month}`;
     const day = new Date().getDate();
-    const dateString = `${year}-${month}-${day}`;
+    const dateString = `${month}-${day}-${year}`;
+    this.state = {
+      completions: starImages[0],
+      date: { dateString },
+    };
     this.goToJournal = this.goToJournal.bind(this);
     this.goToTodo = this.goToTodo.bind(this);
     
@@ -79,61 +79,81 @@ export default class HomeScreen extends React.Component {
           style={styles.starImage}
         />
         <View style={styles.rows}>
-          <TouchableOpacity
-            onPress={this.goToJournal}
-            style={styles.button}
-          >
-            <Ionicons name='ios-book' color='blue' size={60} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.goToTodo}
-            style={styles.button}
-          >
-            <Ionicons name='ios-list' color='blue' size={60} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-          >
-            <Ionicons name='ios-eye' color='blue' size={60} />
-          </TouchableOpacity>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              onPress={this.goToJournal}
+              style={styles.button}
+            >
+              <Ionicons name='ios-book' color='blue' size={60} />
+            </TouchableOpacity>
+            <Text style={styles.buttonText}>Journal</Text>
+          </View>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              onPress={this.goToTodo}
+              style={styles.button}
+            >
+              <Ionicons name='ios-list' color='blue' size={60} />
+            </TouchableOpacity>
+            <Text style={styles.buttonText}>To-Do List</Text>
+          </View>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              style={styles.button}
+            >
+              <Ionicons name='ios-eye' color='blue' size={60} />
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.rows}>
-          <TouchableOpacity
-            onPress={this.goToJournal}
-            style={styles.button}
-          >
-            <Ionicons name='ios-book' color='blue' size={60} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.goToTodo}
-            style={styles.button}
-          >
-            <Ionicons name='ios-list' color='blue' size={60} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-          >
-            <Ionicons name='ios-eye' color='blue' size={60} />
-          </TouchableOpacity>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              onPress={this.goToJournal}
+              style={styles.button}
+            >
+              <Ionicons name='ios-book' color='blue' size={60} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              onPress={this.goToTodo}
+              style={styles.button}
+            >
+              <Ionicons name='ios-list' color='blue' size={60} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              style={styles.button}
+            >
+              <Ionicons name='ios-eye' color='blue' size={60} />
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.rows}>
-          <TouchableOpacity
-            onPress={this.goToJournal}
-            style={styles.button}
-          >
-            <Ionicons name='ios-book' color='blue' size={60} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.goToTodo}
-            style={styles.button}
-          >
-            <Ionicons name='ios-list' color='blue' size={60} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-          >
-            <Ionicons name='ios-eye' color='blue' size={60} />
-          </TouchableOpacity>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              onPress={this.goToJournal}
+              style={styles.button}
+            >
+              <Ionicons name='ios-book' color='blue' size={60} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              onPress={this.goToTodo}
+              style={styles.button}
+            >
+              <Ionicons name='ios-list' color='blue' size={60} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              style={styles.button}
+            >
+              <Ionicons name='ios-eye' color='blue' size={60} />
+            </TouchableOpacity>
+          </View>
         </View>
       </ImageBackground>
     );
@@ -149,7 +169,8 @@ const styles = StyleSheet.create({
   starImage: {
     width: 350,
     height: 350,
-    marginTop: 50
+    marginTop: 50,
+    marginBottom: 20
   },
   rows: {
     flex: 1,
@@ -168,6 +189,14 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'purple',
     borderStyle: 'solid'
+  },
+  buttonColumn: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  buttonText: {
+    color: 'white',
   }
 });
  

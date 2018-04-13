@@ -1,5 +1,13 @@
 import React from 'react';
-import { ScrollView, TextInput, AsyncStorage, Text, View } from 'react-native';
+import {
+  ScrollView,
+  TextInput,
+  AsyncStorage,
+  Text,
+  View,
+  StyleSheet
+} from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import { Button } from 'react-native-elements';
 import axios from 'axios';
 import { server } from '../globalVars';
@@ -40,26 +48,49 @@ export default class JournalScreen extends React.Component {
 
   render() {
     const date = this.props.navigation.state.params.date;
+    console.log(date);
     return (
-      <ScrollView>
-        <View style={{ flex: 1, alignItems: 'center' }} >
-          <Text style={{ paddingTop: 40, fontSize: 20 }}>Journal entry for {date.dateString}</Text>
-        </View>
+      <KeyboardAwareScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.heading}>Journal entry for {date.dateString}</Text>
         <TextInput
           multiline={true}
-          style={{ height: 400 }}
+          style={styles.inputField}
           placeholder="Write your journal entry here"
           onChangeText={(entry) => this.setState({ entry })}
         />
         <Button
           onPress={this.submitEntry}
           title="Save your journal entry"
+          buttonStyle={styles.button}
         />
         <Button
           title="Return home"
           onPress={() => this.props.navigation.navigate('Main')}
+          buttonStyle={styles.button}
         />
-      </ScrollView>
+      </KeyboardAwareScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: 50
+  },
+  heading: {
+    fontSize: 30
+  },
+  inputField: {
+    height: 'auto',
+    minHeight: 400,
+    alignItems: 'center'
+  },
+  button: {
+    backgroundColor: 'blue',
+    borderRadius: 5,
+    marginBottom: 5
+  }
+})
