@@ -8,7 +8,10 @@ import {
   TouchableOpacity,
   View,
   AsyncStorage,
+  ImageBackground,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Button } from 'react-native-elements';
 import { WebBrowser } from 'expo';
 import axios from 'axios';
 import { MonoText } from '../components/StyledText';
@@ -32,9 +35,18 @@ export default class HomeScreen extends React.Component {
   };
   constructor(props) {
     super(props);
+    const year = new Date().getFullYear();
+    let month = new Date().getMonth() + 1;
+    month = month > 9 ? month : `0${month}`;
+    const day = new Date().getDate();
+    const dateString = `${month}-${day}-${year}`;
     this.state = {
       completions: starImages[0],
+      date: { dateString },
     };
+    this.goToJournal = this.goToJournal.bind(this);
+    this.goToTodo = this.goToTodo.bind(this);
+    
   }
   componentWillMount() {
     AsyncStorage.getItem('Token')
@@ -48,21 +60,102 @@ export default class HomeScreen extends React.Component {
       .catch(err => console.error(err));
   }
 
+  goToJournal() {
+    this.props.navigation.navigate('Journal', { date: this.state.date});
+  }
+  
+  goToTodo() {
+    this.props.navigation.navigate('Todo', { date: this.state.date});
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={this.state.completions}
-              style={styles.welcomeImage}
-            />
+      <ImageBackground
+        source={require('../assets/images/milkyWay.jpg')}
+        style={styles.container}
+      >
+        <Image
+          source={this.state.completions}
+          style={styles.starImage}
+        />
+        <View style={styles.rows}>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              onPress={this.goToJournal}
+              style={styles.button}
+            >
+              <Ionicons name='ios-book' color='blue' size={60} />
+            </TouchableOpacity>
+            <Text style={styles.buttonText}>Journal</Text>
           </View>
-            <Text style={styles.getStartedText}>
-              Daily affirmation: You're awesome!
-            </Text>
-        </ScrollView>
-      </View>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              onPress={this.goToTodo}
+              style={styles.button}
+            >
+              <Ionicons name='ios-list' color='blue' size={60} />
+            </TouchableOpacity>
+            <Text style={styles.buttonText}>To-Do List</Text>
+          </View>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              style={styles.button}
+            >
+              <Ionicons name='ios-eye' color='blue' size={60} />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.rows}>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              onPress={this.goToJournal}
+              style={styles.button}
+            >
+              <Ionicons name='ios-book' color='blue' size={60} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              onPress={this.goToTodo}
+              style={styles.button}
+            >
+              <Ionicons name='ios-list' color='blue' size={60} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              style={styles.button}
+            >
+              <Ionicons name='ios-eye' color='blue' size={60} />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.rows}>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              onPress={this.goToJournal}
+              style={styles.button}
+            >
+              <Ionicons name='ios-book' color='blue' size={60} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              onPress={this.goToTodo}
+              style={styles.button}
+            >
+              <Ionicons name='ios-list' color='blue' size={60} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonColumn}>
+            <TouchableOpacity
+              style={styles.button}
+            >
+              <Ionicons name='ios-eye' color='blue' size={60} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ImageBackground>
     );
   }
 }
@@ -70,89 +163,40 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
     alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
+    backgroundColor: '#fff'
   },
-  welcomeImage: {
-    width: 400,
-    height: 400,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
+  starImage: {
+    width: 350,
+    height: 350,
+    marginTop: 50,
+    marginBottom: 20
   },
-  getStartedContainer: {
+  rows: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 300,
+    height: 50
+  },
+  button: {
+    backgroundColor: 'white',
+    borderRadius: 80,
+    height: 80,
+    width: 80,
+    justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 50,
+    borderWidth: 2,
+    borderColor: 'purple',
+    borderStyle: 'solid'
   },
-  homeScreenFilename: {
-    marginVertical: 7,
+  buttonColumn: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center'
   },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
+  buttonText: {
+    color: 'white',
+  }
 });
  
