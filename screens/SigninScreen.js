@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#fff'
+    backgroundColor: '#000000'
   },
   innerContainer: {
     flex: 1,

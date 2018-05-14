@@ -103,6 +103,7 @@ export default class HomeScreen extends React.Component {
             >
               <Ionicons name='ios-eye' color='blue' size={60} />
             </TouchableOpacity>
+            <Text style={styles.buttonText}>Meditations</Text>
           </View>
         </View>
         <View style={styles.rows}>
@@ -113,6 +114,7 @@ export default class HomeScreen extends React.Component {
             >
               <Ionicons name='ios-book' color='blue' size={60} />
             </TouchableOpacity>
+            <Text style={styles.buttonText}>Water</Text>
           </View>
           <View style={styles.buttonColumn}>
             <TouchableOpacity
@@ -121,6 +123,7 @@ export default class HomeScreen extends React.Component {
             >
               <Ionicons name='ios-list' color='blue' size={60} />
             </TouchableOpacity>
+            <Text style={styles.buttonText}>Calendar</Text>
           </View>
           <View style={styles.buttonColumn}>
             <TouchableOpacity
@@ -128,31 +131,7 @@ export default class HomeScreen extends React.Component {
             >
               <Ionicons name='ios-eye' color='blue' size={60} />
             </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.rows}>
-          <View style={styles.buttonColumn}>
-            <TouchableOpacity
-              onPress={this.goToJournal}
-              style={styles.button}
-            >
-              <Ionicons name='ios-book' color='blue' size={60} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.buttonColumn}>
-            <TouchableOpacity
-              onPress={this.goToTodo}
-              style={styles.button}
-            >
-              <Ionicons name='ios-list' color='blue' size={60} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.buttonColumn}>
-            <TouchableOpacity
-              style={styles.button}
-            >
-              <Ionicons name='ios-eye' color='blue' size={60} />
-            </TouchableOpacity>
+            <Text style={styles.buttonText}>Settings</Text>
           </View>
         </View>
       </ImageBackground>
