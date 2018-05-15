@@ -7,6 +7,8 @@ import Signin from '../screens/SigninScreen';
 import Signup from '../screens/SignupScreen';
 import JournalScreen from '../screens/JournalScreen';
 import TodoScreen from '../screens/TodoScreen';
+import Water from '../screens/Water';
+import Settings from '../screens/Settings';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 const RootStackNavigator = StackNavigator(
@@ -25,6 +27,12 @@ const RootStackNavigator = StackNavigator(
     },
     Todo: {
       screen: TodoScreen,
+    },
+    Water: {
+      screen: Water,
+    },
+    Settings: {
+      screen: Settings,
     },
   },
   {

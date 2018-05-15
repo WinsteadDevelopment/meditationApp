@@ -106,15 +106,6 @@ export default class HomeScreen extends React.Component {
             </TouchableOpacity>
             <Text style={styles.buttonText}>To-Do List</Text>
           </View>
-          {/* <View style={styles.buttonColumn}>
-            <TouchableOpacity
-              onPress={this.goToMeditations}
-              style={styles.button}
-            >
-              <Ionicons name='ios-color-filter' color='blue' size={60} />
-            </TouchableOpacity>
-            <Text style={styles.buttonText}>Meditations</Text>
-          </View> */}
         </View>
         <View style={styles.rows}>
           <View style={styles.buttonColumn}>
@@ -127,7 +118,7 @@ export default class HomeScreen extends React.Component {
             <Text style={styles.buttonText}>Water</Text>
           </View>
           <View style={styles.buttonColumn}>
-            <TouchableOpacity
+            <TouchableOpacity  
             onPress={this.goToSettings}
               onPress={this.goToSettings}
               style={styles.button}
