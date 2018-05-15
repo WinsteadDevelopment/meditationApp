@@ -52,7 +52,8 @@ export default class SigninScreen extends React.Component {
           <TextInput
             style={styles.textInput}
             onChangeText={(username) => this.setState({ username })}
-            placeholder="username"
+            placeholderTextColor='navy'
+            placeholder="Username"
             value={this.state.username}
             autoCapitalize="none"
             autoCorrect={false}
@@ -60,7 +61,8 @@ export default class SigninScreen extends React.Component {
           <TextInput
             style={styles.textInput}
             onChangeText={(password) => this.setState({ password })}
-            placeholder="password"
+            placeholder="Password"
+            placeholderTextColor='navy'
             value={this.state.password}
             autoCapitalize="none"
             autoCorrect={false}
@@ -71,12 +73,14 @@ export default class SigninScreen extends React.Component {
             onPress={this.login}
             buttonStyle={styles.button}
             titleStyle={{ color: 'black' }}
+            color='navy'
           />
           <Button
             title="Create a new account"
             onPress={() => this.props.navigation.navigate('Signup')}
             buttonStyle={styles.button}
-            titleStyle={{ color: 'black' }}
+            titleStyle={{ color: 'navy' }}
+            color='navy'
           />
         </View>
       </ImageBackground>
@@ -98,16 +102,21 @@ const styles = StyleSheet.create({
   },
   textInput: {
     height: 40,
-    borderWidth: 0,
+    borderWidth: 2,
+    borderColor: 'black',
     width: '90%',
-    backgroundColor: 'rgba(255,255,255,.8)',
+    backgroundColor: 'rgb(236, 198, 85)',
     marginBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    color: 'white'
+    color: 'black',
+    textAlign: 'center'
   },
   button: {
-    backgroundColor: '#191970',
-    marginBottom: 10
+    //backgroundColor: '#191970',
+    backgroundColor: 'rgb(236, 198, 85)',
+    marginBottom: 10,
+    borderWidth: 2,
+    borderColor: 'black',
   }
 });
