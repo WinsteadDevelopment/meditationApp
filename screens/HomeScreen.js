@@ -46,7 +46,8 @@ export default class HomeScreen extends React.Component {
     };
     this.goToJournal = this.goToJournal.bind(this);
     this.goToTodo = this.goToTodo.bind(this);
-    
+    this.goToWater = this.goToWater.bind(this);
+    this.goToSettings = this.goToSettings.bind(this);
   }
   componentWillMount() {
     AsyncStorage.getItem('Token')
@@ -68,6 +69,14 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate('Todo', { date: this.state.date});
   }
 
+  goToWater() {
+    this.props.navigation.navigate('Water', { date: this.state.date});
+  }
+
+  goToSettings() {
+    this.props.navigation.navigate('Settings', { date: this.state.date});
+  }
+
   render() {
     return (
       <ImageBackground
@@ -84,7 +93,7 @@ export default class HomeScreen extends React.Component {
               onPress={this.goToJournal}
               style={styles.button}
             >
-              <Ionicons name='ios-book' color='blue' size={60} />
+              <Ionicons name='ios-bookmarks' color='blue' size={60} />
             </TouchableOpacity>
             <Text style={styles.buttonText}>Journal</Text>
           </View>
@@ -97,62 +106,35 @@ export default class HomeScreen extends React.Component {
             </TouchableOpacity>
             <Text style={styles.buttonText}>To-Do List</Text>
           </View>
-          <View style={styles.buttonColumn}>
+          {/* <View style={styles.buttonColumn}>
             <TouchableOpacity
+              onPress={this.goToMeditations}
               style={styles.button}
             >
-              <Ionicons name='ios-eye' color='blue' size={60} />
+              <Ionicons name='ios-color-filter' color='blue' size={60} />
             </TouchableOpacity>
-          </View>
+            <Text style={styles.buttonText}>Meditations</Text>
+          </View> */}
         </View>
         <View style={styles.rows}>
           <View style={styles.buttonColumn}>
             <TouchableOpacity
-              onPress={this.goToJournal}
+              onPress={this.goToWater}
               style={styles.button}
             >
-              <Ionicons name='ios-book' color='blue' size={60} />
+              <Ionicons name='ios-water' color='blue' size={60} />
             </TouchableOpacity>
+            <Text style={styles.buttonText}>Water</Text>
           </View>
           <View style={styles.buttonColumn}>
             <TouchableOpacity
-              onPress={this.goToTodo}
+            onPress={this.goToSettings}
+              onPress={this.goToSettings}
               style={styles.button}
             >
-              <Ionicons name='ios-list' color='blue' size={60} />
+              <Ionicons name='ios-settings' color='blue' size={60} />
             </TouchableOpacity>
-          </View>
-          <View style={styles.buttonColumn}>
-            <TouchableOpacity
-              style={styles.button}
-            >
-              <Ionicons name='ios-eye' color='blue' size={60} />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.rows}>
-          <View style={styles.buttonColumn}>
-            <TouchableOpacity
-              onPress={this.goToJournal}
-              style={styles.button}
-            >
-              <Ionicons name='ios-book' color='blue' size={60} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.buttonColumn}>
-            <TouchableOpacity
-              onPress={this.goToTodo}
-              style={styles.button}
-            >
-              <Ionicons name='ios-list' color='blue' size={60} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.buttonColumn}>
-            <TouchableOpacity
-              style={styles.button}
-            >
-              <Ionicons name='ios-eye' color='blue' size={60} />
-            </TouchableOpacity>
+            <Text style={styles.buttonText}>Settings</Text>
           </View>
         </View>
       </ImageBackground>
