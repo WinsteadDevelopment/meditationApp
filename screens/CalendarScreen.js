@@ -54,43 +54,37 @@ export default class CalendarScreen extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Calendar
-          // Handler which gets executed on day press. Default = undefined
           onDayPress={(date) => this.toggleModal(date)}
-          // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
           monthFormat={'MMM yyyy'}
-          // Handler which gets executed when visible month changes in calendar. Default = undefined
           onMonthChange={(month) => { console.log('month changed', month) }}
-          // Do not show days of other months in month page. Default = false
           hideExtraDays={true}
-          // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
           firstDay={1}
-          // Handler which gets executed when press arrow icon left. It receive a callback can go back month
           onPressArrowLeft={substractMonth => substractMonth()}
-          // Handler which gets executed when press arrow icon left. It receive a callback can go next month
           onPressArrowRight={addMonth => addMonth()}
         />
         <Modal
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}
-          onRequestClose={() => {
-            alert('Modal has been closed.');
-          }}>
+        >
           <View style={{ marginTop: 22, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <View>
               <Button
-                title="Write a journal entry for this day"
+                title="View your journal entry for this day"
                 onPress={this.goToJournal}
+                buttonStyle={styles.link}
               />
               <Button
-                title="See/edit your todo list for this day"
+                title="View your todo list for this day"
                 onPress={this.goToTodo}
+                buttonStyle={styles.link}
               />
               <Button
-                title="Hide"
+                title="Back to calendar"
                 onPress={this.toggleModal}
+                buttonStyle={styles.link}
               />
             </View>
           </View>
@@ -106,5 +100,10 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
     backgroundColor: '#fff',
+  },
+  link: {
+    margin: 5,
+    borderRadius: 10,
+    backgroundColor: 'blue'
   },
 });
