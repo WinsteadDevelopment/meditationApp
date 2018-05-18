@@ -29,10 +29,54 @@ const starImages = [
   require('../assets/images/8star.png')
 ]
 
+const buttons = [
+  {
+    title: 'Journal',
+    route: 'Journal',
+    icon: 'ios-bookmarks' 
+  },
+  {
+    title: 'To Do List',
+    route: 'Todo',
+    icon: 'ios-list'
+  },
+  {
+    title: 'Meditation',
+    route: 'Meditations',
+    icon: 'ios-eye'
+  },
+  {
+    title: 'Water',
+    route: 'Water',
+    icon: 'ios-water'
+  },
+  {
+    title: 'Exercise',
+    route: 'Exercise',
+    icon: 'ios-weight'
+  },
+  {
+    title: 'Sleep',
+    route: 'Sleep',
+    icon: 'ios-bed'
+  },
+  {
+    title: 'Goals',
+    route: 'Goals',
+    icon: 'ios-compass'
+  },
+  {
+    title: 'Settings',
+    route: 'Settings',
+    icon: 'ios-settings'
+  }
+];
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
   constructor(props) {
     super(props);
     const year = new Date().getFullYear();
@@ -44,38 +88,39 @@ export default class HomeScreen extends React.Component {
       completions: starImages[0],
       date: { dateString },
     };
-    this.goToJournal = this.goToJournal.bind(this);
-    this.goToTodo = this.goToTodo.bind(this);
-    this.goToWater = this.goToWater.bind(this);
-    this.goToSettings = this.goToSettings.bind(this);
+    this.navigateTo = this.navigateTo.bind(this);
   }
+
   componentWillMount() {
-    AsyncStorage.getItem('Token')
-      .then(token => {
-        return axios.get(`${server}/userCompletions`, { headers: { authorization: JSON.parse(token) } })
-      })
-      .then(res => {
-        console.log('response: ', res.data);
-        this.setState({completions: starImages[JSON.parse(res.data)]});
-      })
-      .catch(err => console.error(err));
+    // AsyncStorage.getItem('Token')
+    //   .then(token => {
+    //     return axios.get(`${server}/userCompletions`, { headers: { authorization: JSON.parse(token) } })
+    //   })
+    //   .then(res => {
+    //     console.log('response: ', res.data);
+    //     this.setState({completions: starImages[JSON.parse(res.data)]});
+    //   })
+    //   .catch(err => console.error(err));
   }
 
-  goToJournal() {
-    this.props.navigation.navigate('Journal', { date: this.state.date});
-  }
-  
-  goToTodo() {
-    this.props.navigation.navigate('Todo', { date: this.state.date});
+  navigateTo(route) {
+    this.props.navigation.navigate(route, { date: this.state.date });
   }
 
-  goToWater() {
-    this.props.navigation.navigate('Water', { date: this.state.date});
+  renderButton(button) {
+    return (
+      <View style={styles.buttonColumn}>
+        <TouchableOpacity
+          onPress={() => this.navigateTo(button.route)}
+          style={styles.button}
+        >
+          <Ionicons name={button.icon} color='blue' size={60} />
+        </TouchableOpacity>
+        <Text style={styles.buttonText}>{button.title}</Text>
+      </View>
+    );
   }
 
-  goToSettings() {
-    this.props.navigation.navigate('Settings', { date: this.state.date});
-  }
 
   render() {
     return (
@@ -87,46 +132,15 @@ export default class HomeScreen extends React.Component {
           source={this.state.completions}
           style={styles.starImage}
         />
-        <View style={styles.rows}>
-          <View style={styles.buttonColumn}>
-            <TouchableOpacity
-              onPress={this.goToJournal}
-              style={styles.button}
-            >
-              <Ionicons name='ios-bookmarks' color='blue' size={60} />
-            </TouchableOpacity>
-            <Text style={styles.buttonText}>Journal</Text>
-          </View>
-          <View style={styles.buttonColumn}>
-            <TouchableOpacity
-              onPress={this.goToTodo}
-              style={styles.button}
-            >
-              <Ionicons name='ios-list' color='blue' size={60} />
-            </TouchableOpacity>
-            <Text style={styles.buttonText}>To-Do List</Text>
-          </View>
+        <Text style={styles.welcome}>Welcome, human user</Text>
+        <View style={styles.buttonsRow}>
+          {buttons.slice(0, 3).map(button => this.renderButton(button))}
         </View>
-        <View style={styles.rows}>
-          <View style={styles.buttonColumn}>
-            <TouchableOpacity
-              onPress={this.goToWater}
-              style={styles.button}
-            >
-              <Ionicons name='ios-water' color='blue' size={60} />
-            </TouchableOpacity>
-            <Text style={styles.buttonText}>Water</Text>
-          </View>
-          <View style={styles.buttonColumn}>
-            <TouchableOpacity  
-            onPress={this.goToSettings}
-              onPress={this.goToSettings}
-              style={styles.button}
-            >
-              <Ionicons name='ios-settings' color='blue' size={60} />
-            </TouchableOpacity>
-            <Text style={styles.buttonText}>Settings</Text>
-          </View>
+        <View style={styles.buttonsRow}>
+          {buttons.slice(3, 6).map(button => this.renderButton(button))}
+        </View>
+        <View style={styles.buttonsRow}>
+          {buttons.slice(6).map(button => this.renderButton(button))}
         </View>
       </ImageBackground>
     );
@@ -142,15 +156,20 @@ const styles = StyleSheet.create({
   starImage: {
     width: 350,
     height: 350,
-    marginTop: 50,
-    marginBottom: 20
+    marginTop: 40
   },
-  rows: {
+  welcome: {
+    color: '#fff',
+    fontSize: 24,
+    marginBottom: 8
+  },
+  buttonsRow: {
+    width: '100%',
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: 300,
-    height: 50
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    justifyContent: 'center'
   },
   button: {
     backgroundColor: 'white',
@@ -166,7 +185,10 @@ const styles = StyleSheet.create({
   buttonColumn: {
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    maxWidth: '33%',
+    width: '33%',
+    position: 'relative'
   },
   buttonText: {
     color: 'white',
