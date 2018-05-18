@@ -1,25 +1,41 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { TabNavigator, TabBarBottom } from 'react-navigation';
+import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation';
 
 import Colors from '../constants/Colors';
 
 import HomeScreen from '../screens/HomeScreen';
 import CalendarScreen from '../screens/CalendarScreen';
 import Meditations from '../screens/Meditations';
+import JournalScreen from '../screens/JournalScreen';
+import Settings from '../screens/Settings';
+import TodoScreen from '../screens/TodoScreen';
+import Water from '../screens/Water';
+import Sleep from '../screens/Sleep';
+import Exercise from '../screens/Exercise';
+import Goals from '../screens/Goals';
 
 export default TabNavigator(
   {
     Home: {
-      screen: HomeScreen,
+      screen: StackNavigator(
+        {
+          Home: HomeScreen,
+          Journal: JournalScreen,
+          Todo: TodoScreen,
+          Settings,
+          Water,
+          Meditations,
+          Sleep,
+          Exercise,
+          Goals
+        }
+      ),
     },
     Calendar: {
       screen: CalendarScreen,
-    },
-    Meditations: {
-      screen: Meditations,
-    },
+    }
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -36,9 +52,6 @@ export default TabNavigator(
           case 'Calendar':
             iconName = Platform.OS === 'ios' ? `ios-calendar${focused ? '' : '-outline'}` : 'md-calendar';
             break;
-          case 'Meditations':
-            iconName =
-              Platform.OS === 'ios' ? `ios-eye${focused ? '' : '-outline'}` : 'md-eye';
         }
         return (
           <Ionicons

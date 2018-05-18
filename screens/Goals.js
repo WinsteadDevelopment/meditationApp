@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export default class Meditations extends React.Component {
+export default class Goals extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -10,10 +10,7 @@ export default class Meditations extends React.Component {
   render() {
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        <Text>5 minute meditation</Text>
-        <Text>10 minute meditation</Text>
-        <Text>30 minute meditation</Text>
-        <Text>1 hour meditation</Text>
+        <Text>Goals Page</Text>
       </ScrollView>
     )
   }
