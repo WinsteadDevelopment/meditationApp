@@ -4,6 +4,8 @@ import { AppLoading, Asset, Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import RootNavigation from './navigation/RootNavigation';
 
+console.disableYellowBox = true;
+
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,

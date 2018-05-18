@@ -1,8 +1,8 @@
 import React from 'react';
 import { ScrollView, Text, TextInput, Modal, View, AsyncStorage, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
-import { NavigationActions } from 'react-navigation';
-import RoundCheckbox from 'rn-round-checkbox';
+import { NavigationActions } from 'react-navigation'
+import CheckBox from 'react-native-check-box';
 import axios from 'axios';
 import { server } from '../globalVars';
 
@@ -22,11 +22,10 @@ export default class TodoScreen extends React.Component {
     };
     this.createTodo = this.createTodo.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
-    this.pressCheck = this.pressCheck.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   componentWillMount() {
-    console.log(this.state.date)
     AsyncStorage.getItem('Token')
       .then(token => {
         return axios.get(`${server}/todo`, { headers: { Authorization: JSON.parse(token), date: this.state.date } });
@@ -43,48 +42,46 @@ export default class TodoScreen extends React.Component {
   }
 
   createTodo() {
-    this.setState({ todo: this.state.todo.concat(this.state.input)})
-    AsyncStorage.getItem('Token')
-      .then(token => {
-        return axios({
-          method: 'post',
-          url: `${server}/todo`,
-          headers: {
-            authorization: JSON.parse(token),
-            'Content-Type': 'application/json',
-          },
-          data: {
-            todo: this.state.input,
-            date: this.state.date,
-          },
-        });
-      })
-      .then((res) => {
-        this.toggleModal();
-      })
-      .catch((err) => console.log(err));
+    if (!this.state.todo.includes(this.state.input)) {
+      this.setState({ todo: this.state.todo.concat(this.state.input)})
+      AsyncStorage.getItem('Token')
+        .then(token => {
+          return axios({
+            method: 'post',
+            url: `${server}/todo`,
+            headers: {
+              authorization: JSON.parse(token),
+              'Content-Type': 'application/json',
+            },
+            data: {
+              todo: this.state.input,
+              date: this.state.date,
+            },
+          });
+        })
+        .then((res) => {
+          this.toggleModal();
+        })
+        .catch((err) => console.log(err));
+    } else {
+      alert('You already have that in your to do list');
+    }
   }
 
-  pressCheck(bool) {
-    this.setState({ [`isSelected${i}`]: !this.state[`isSelected${i}`] });
-    // make a request to update the completion status of this item in the database
+  onClick(data) {
+    console.log('checkbox checked', data);
   }
+
 
   render() {
-    const todoList = this.state.todo.map((element, i) => {
-      this.state[`isSelected${i}`] = this.state[`isSelected${i}`] || false;
-      return (
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <RoundCheckbox
-            size={24}
-            checked={this.state[`isSelected${i}`]}
-            onValueChange={(newValue) => this.pressCheck(newValue)}
-            style={styles.checkBox}
-          />
-          <Text key={element} style={styles.todo}>{element}</Text>
-        </View>
-      );
-    });
+    const todoList = this.state.todo.map((element, i) => (
+      <CheckBox
+        style={{ flex: 1, padding: 10 }}
+        onClick={(data) => this.onClick(data)}
+        isChecked={false}
+        leftText={element}
+      />
+    ));
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.todoContainer}>
@@ -92,6 +89,7 @@ export default class TodoScreen extends React.Component {
           {todoList}
         </View>
         <Button
+          style={{ paddingTop: 20 }}
           title="Create new item"
           onPress={this.toggleModal}
           buttonStyle={styles.button}
