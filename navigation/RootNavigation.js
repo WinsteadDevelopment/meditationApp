@@ -5,24 +5,19 @@ import { StackNavigator } from 'react-navigation';
 import MainTabNavigator from './MainTabNavigator';
 import Signin from '../screens/SigninScreen';
 import Signup from '../screens/SignupScreen';
-import JournalScreen from '../screens/JournalScreen';
-import TodoScreen from '../screens/TodoScreen';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 const RootStackNavigator = StackNavigator(
   {
-    Signin: {
-      screen: Signin,
-    },
     Main: {
       screen: MainTabNavigator,
     },
-    Journal: {
-      screen: JournalScreen,
+    Signin: {
+      screen: Signin,
     },
-    Todo: {
-      screen: TodoScreen,
-    },
+    Signup: {
+      screen: Signup,
+    }
   },
   {
     navigationOptions: () => ({

@@ -1,9 +1,9 @@
 import React from 'react';
-import { ScrollView, Text, StyleSheet, Picker, View } from 'react-native';
+import { ScrollView, Text, StyleSheet, Picker } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 
-export default class Water extends React.Component {
+export default class Sleep extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -18,11 +18,12 @@ export default class Water extends React.Component {
   render() {
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        <Text>How many glasses of water did you have today?</Text>
+        <Text>How many hours did you sleep last night??</Text>
         <Picker
           style={{ width: 100 }}
           selectedValue={this.state.selectedValue}
-          onValueChange={selectedValue => this.setState({ selectedValue })}>
+          onValueChange={selectedValue => this.setState({ selectedValue })}
+        >
           <Picker.Item label="0" value='0' />
           <Picker.Item label="1" value='1' />
           <Picker.Item label="2" value='2' />
@@ -50,10 +51,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  picker: {
-    width: '100%',
-    height: 20
   },
   button: {
     backgroundColor: 'blue',
