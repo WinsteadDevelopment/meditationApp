@@ -19,7 +19,6 @@ import {
 import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
 import { Button } from 'react-native-elements';
 import { ExpoLinksView } from '@expo/samples';
-import CheckBox from 'react-native-checkbox';
 import { NavigationActions } from 'react-navigation';
 
 export default class CalendarScreen extends React.Component {

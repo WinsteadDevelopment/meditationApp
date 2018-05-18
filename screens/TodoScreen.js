@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView, Text, TextInput, Modal, View, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation'
+import CheckBox from 'react-native-check-box';
 import axios from 'axios';
 import { server } from '../globalVars';
 
@@ -20,10 +21,10 @@ export default class TodoScreen extends React.Component {
     };
     this.createTodo = this.createTodo.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   componentWillMount() {
-    console.log(this.state.date)
     AsyncStorage.getItem('Token')
       .then(token => {
         return axios.get(`${server}/todo`, { headers: { Authorization: JSON.parse(token), date: this.state.date } });
@@ -40,35 +41,52 @@ export default class TodoScreen extends React.Component {
   }
 
   createTodo() {
-    this.setState({ todo: this.state.todo.concat(this.state.input)})
-    AsyncStorage.getItem('Token')
-      .then(token => {
-        return axios({
-          method: 'post',
-          url: `${server}/todo`,
-          headers: {
-            authorization: JSON.parse(token),
-            'Content-Type': 'application/json',
-          },
-          data: {
-            todo: this.state.input,
-            date: this.state.date,
-          },
-        });
-      })
-      .then((res) => {
-        this.toggleModal();
-      })
-      .catch((err) => console.log(err));
+    if (!this.state.todo.includes(this.state.input)) {
+      this.setState({ todo: this.state.todo.concat(this.state.input)})
+      AsyncStorage.getItem('Token')
+        .then(token => {
+          return axios({
+            method: 'post',
+            url: `${server}/todo`,
+            headers: {
+              authorization: JSON.parse(token),
+              'Content-Type': 'application/json',
+            },
+            data: {
+              todo: this.state.input,
+              date: this.state.date,
+            },
+          });
+        })
+        .then((res) => {
+          this.toggleModal();
+        })
+        .catch((err) => console.log(err));
+    } else {
+      alert('You already have that in your to do list');
+    }
   }
 
+  onClick(data) {
+    console.log('checkbox checked', data);
+  }
+
+
   render() {
-    const todoList = this.state.todo.map((element, i) => (<Text key={element}>{element}</Text>));
+    const todoList = this.state.todo.map((element, i) => (
+      <CheckBox
+        style={{ flex: 1, padding: 10 }}
+        onClick={(data) => this.onClick(data)}
+        isChecked={false}
+        leftText={element}
+      />
+    ));
     return (
       <ScrollView contentContainerStyle={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text style={{ paddingBottom: 20 }}>To do list for {this.state.date}:</Text>
         {todoList}
         <Button
+          style={{ paddingTop: 20 }}
           title="Create new item"
           onPress={this.toggleModal}
         />
