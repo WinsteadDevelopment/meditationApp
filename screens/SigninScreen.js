@@ -5,13 +5,17 @@ import {
   Text,
   AsyncStorage,
   StyleSheet,
-  ImageBackground
+  ImageBackground,
+  Image,
+  TouchableHighlight
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import axios from 'axios';
 import { server } from '../globalVars';
 import SignupScreen from './SignupScreen';
+import loginBackground from '../assets/images/loginBackground.jpg';
+import star from '../assets/images/8star.png';
 
 export default class SigninScreen extends React.Component {
   static navigationOptions = {
@@ -45,10 +49,12 @@ export default class SigninScreen extends React.Component {
   render() {
     return (
       <ImageBackground
-        source={require('../assets/images/loginBackground.jpg')}
+        source={loginBackground}
         style={styles.container}
       >
         <View style={styles.innerContainer}>
+          <Text style={styles.header}>Whatever the fucking name of this app is :D</Text>
+          <Image style={styles.star} source={star} />
           <TextInput
             style={styles.textInput}
             onChangeText={(username) => this.setState({ username })}
@@ -75,13 +81,14 @@ export default class SigninScreen extends React.Component {
             titleStyle={{ color: 'black' }}
             color='navy'
           />
-          <Button
-            title="Create a new account"
-            onPress={() => this.props.navigation.navigate('Signup')}
-            buttonStyle={styles.button}
-            titleStyle={{ color: 'navy' }}
-            color='navy'
-          />
+          <View style={styles.bottomButtons}>
+            <TouchableHighlight>
+              <Text style={styles.bottomText}>Forgot password?</Text>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => this.props.navigation.navigate('Signup')}>
+              <Text style={styles.bottomText}>New user?</Text>
+            </TouchableHighlight>
+          </View>
         </View>
       </ImageBackground>
     )
@@ -96,16 +103,27 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flex: 1,
-    justifyContent: 'center',
     width: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingTop: 50
+  },
+  header: {
+    fontSize: 36,
+    color: 'yellow',
+    textShadowColor: 'red',
+    textShadowOffset: {
+      width: -2,
+      height: 2
+    },
+    textShadowRadius: 3,
+    textAlign: 'center'
   },
   textInput: {
     height: 40,
     borderWidth: 2,
     borderColor: 'black',
     width: '90%',
-    backgroundColor: 'rgb(236, 198, 85)',
+    backgroundColor: 'rgba(236, 198, 85, 0.5)',
     marginBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -113,10 +131,25 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   button: {
-    //backgroundColor: '#191970',
-    backgroundColor: 'rgb(236, 198, 85)',
+    backgroundColor: 'rgba(236, 198, 85, 0.5)',
     marginBottom: 10,
     borderWidth: 2,
     borderColor: 'black',
+  },
+  star: {
+    width: 275,
+    height: 275,
+    marginBottom: 30
+  },
+  bottomButtons: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 150,
+    width: '90%'
+  },
+  bottomText: {
+    color: 'white',
+    textDecorationLine: 'underline'
   }
 });

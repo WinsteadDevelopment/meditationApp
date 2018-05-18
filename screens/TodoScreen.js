@@ -26,7 +26,6 @@ export default class TodoScreen extends React.Component {
   }
 
   componentWillMount() {
-    console.log(this.state.date)
     AsyncStorage.getItem('Token')
       .then(token => {
         return axios.get(`${server}/todo`, { headers: { Authorization: JSON.parse(token), date: this.state.date } });
@@ -43,26 +42,30 @@ export default class TodoScreen extends React.Component {
   }
 
   createTodo() {
-    this.setState({ todo: this.state.todo.concat(this.state.input)})
-    AsyncStorage.getItem('Token')
-      .then(token => {
-        return axios({
-          method: 'post',
-          url: `${server}/todo`,
-          headers: {
-            authorization: JSON.parse(token),
-            'Content-Type': 'application/json',
-          },
-          data: {
-            todo: this.state.input,
-            date: this.state.date,
-          },
-        });
-      })
-      .then((res) => {
-        this.toggleModal();
-      })
-      .catch((err) => console.log(err));
+    if (!this.state.todo.includes(this.state.input)) {
+      this.setState({ todo: this.state.todo.concat(this.state.input)})
+      AsyncStorage.getItem('Token')
+        .then(token => {
+          return axios({
+            method: 'post',
+            url: `${server}/todo`,
+            headers: {
+              authorization: JSON.parse(token),
+              'Content-Type': 'application/json',
+            },
+            data: {
+              todo: this.state.input,
+              date: this.state.date,
+            },
+          });
+        })
+        .then((res) => {
+          this.toggleModal();
+        })
+        .catch((err) => console.log(err));
+    } else {
+      alert('You already have that in your to do list');
+    }
   }
 
   pressCheck(bool) {
@@ -92,6 +95,7 @@ export default class TodoScreen extends React.Component {
           {todoList}
         </View>
         <Button
+          style={{ paddingTop: 20 }}
           title="Create new item"
           onPress={this.toggleModal}
           buttonStyle={styles.button}

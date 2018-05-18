@@ -58,16 +58,18 @@ export default class JournalScreen extends React.Component {
           placeholder="Write your journal entry here"
           onChangeText={(entry) => this.setState({ entry })}
         />
-        <Button
-          onPress={this.submitEntry}
-          title="Save your journal entry"
-          buttonStyle={styles.button}
-        />
-        <Button
-          title="Return home"
-          onPress={() => this.props.navigation.navigate('Main')}
-          buttonStyle={styles.button}
-        />
+        <View style={styles.buttonsContainer}>
+          <Button
+            onPress={this.submitEntry}
+            title="Save"
+            buttonStyle={styles.button}
+          />
+          <Button
+            title="Return home"
+            onPress={() => this.props.navigation.navigate('Main')}
+            buttonStyle={styles.button}
+          />
+        </View>
       </KeyboardAwareScrollView>
     );
   }
@@ -80,17 +82,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 50
   },
+  buttonsContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
   heading: {
-    fontSize: 30
+    fontSize: 30,
+    textAlign: 'center'
   },
   inputField: {
     height: 'auto',
-    minHeight: 400,
+    minHeight: 50,
     alignItems: 'center'
   },
   button: {
     backgroundColor: 'blue',
     borderRadius: 5,
-    marginBottom: 5
+    marginBottom: 5,
+    borderRadius: 50
   }
 })

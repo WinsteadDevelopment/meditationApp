@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default class Meditations extends React.Component {
   static navigationOptions = {
-    title: 'Meditations',
+    header: null,
   };
 
   render() {
