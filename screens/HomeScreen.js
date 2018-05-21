@@ -31,19 +31,19 @@ const starImages = [
 
 const buttons = [
   {
-    title: 'Journal',
+    title: 'Gratitude',
     route: 'Journal',
-    icon: 'ios-bookmarks' 
+    icon: 'ios-hand' 
   },
   {
-    title: 'To Do List',
+    title: 'To Do',
     route: 'Todo',
     icon: 'ios-list'
   },
   {
-    title: 'Meditation',
+    title: 'Meditate',
     route: 'Meditations',
-    icon: 'ios-eye'
+    icon: 'ios-man'
   },
   {
     title: 'Water',
@@ -53,12 +53,12 @@ const buttons = [
   {
     title: 'Exercise',
     route: 'Exercise',
-    icon: 'ios-weight'
+    icon: 'ios-heart'
   },
   {
     title: 'Sleep',
     route: 'Sleep',
-    icon: 'ios-bed'
+    icon: 'ios-moon'
   },
   {
     title: 'Goals',
@@ -114,7 +114,7 @@ export default class HomeScreen extends React.Component {
           onPress={() => this.navigateTo(button.route)}
           style={styles.button}
         >
-          <Ionicons name={button.icon} color='blue' size={60} />
+          <Ionicons name={button.icon} color='blue' size={40} />
         </TouchableOpacity>
         <Text style={styles.buttonText}>{button.title}</Text>
       </View>
@@ -154,8 +154,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   starImage: {
-    width: 350,
-    height: 350,
+    width: 300,
+    height: 300,
     marginTop: 40
   },
   welcome: {
@@ -174,8 +174,8 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: 'white',
     borderRadius: 80,
-    height: 80,
-    width: 80,
+    height: 60,
+    width: 60,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
