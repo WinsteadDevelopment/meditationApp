@@ -14,7 +14,7 @@ import { NavigationActions } from 'react-navigation';
 import axios from 'axios';
 import { server } from '../globalVars';
 import SignupScreen from './SignupScreen';
-import loginBackground from '../assets/images/loginBackground.jpg';
+import loginBackground from '../assets/images/treeStars.jpg';
 import star from '../assets/images/8star.png';
 
 export default class SigninScreen extends React.Component {
