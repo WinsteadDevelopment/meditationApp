@@ -48,7 +48,6 @@ export default class JournalScreen extends React.Component {
 
   render() {
     const date = this.props.navigation.state.params.date;
-    console.log(date);
     return (
       <KeyboardAwareScrollView contentContainerStyle={styles.container}>
         <Text style={styles.heading}>Journal entry for {date.dateString}</Text>

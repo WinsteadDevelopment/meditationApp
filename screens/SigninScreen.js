@@ -14,8 +14,12 @@ import { NavigationActions } from 'react-navigation';
 import axios from 'axios';
 import { server } from '../globalVars';
 import SignupScreen from './SignupScreen';
+<<<<<<< HEAD
 import loginBackground from '../assets/images/loginBackground.jpg';
 import star from '../assets/images/8star.png';
+=======
+import { CheckBox } from 'react-native-elements'
+>>>>>>> [persistance] Adds rememberME button to login screen
 
 export default class SigninScreen extends React.Component {
   static navigationOptions = {
@@ -26,14 +30,24 @@ export default class SigninScreen extends React.Component {
     super();
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      rememberMe: false,
     };
     this.login = this.login.bind(this);
+    this.setRemember = this.setRemember.bind(this);
   }
 
-  login() {
-    axios.post(`${server}/signin`, { username: this.state.username, password: this.state.password })
+  setRemember() {
+          this.setState({
+              rememberMe: !this.state.rememberMe
+          });
+      }
+
+  login(e) {
+    e.preventDefault();
+    axios.post(`${server}/signin`, { username: this.state.username, password: this.state.password, rememberMe: this.state.rememberMe })
       .then(res => {
+        alert(res.data)
         if (res.data !== 'Sorry, that password was incorrect') {
           AsyncStorage.setItem('Token', JSON.stringify(res.data));
           this.props.navigation.navigate('Main');
@@ -42,7 +56,7 @@ export default class SigninScreen extends React.Component {
         }
       })
       .catch(err => {
-        alert('Sorry, that username/password combination was incorrect');
+        alert(err, 'Sorry, that username/password combination was incorrect');
       })
   }
 
@@ -81,6 +95,7 @@ export default class SigninScreen extends React.Component {
             titleStyle={{ color: 'black' }}
             color='navy'
           />
+<<<<<<< HEAD
           <View style={styles.bottomButtons}>
             <TouchableHighlight>
               <Text style={styles.bottomText}>Forgot password?</Text>
@@ -89,6 +104,24 @@ export default class SigninScreen extends React.Component {
               <Text style={styles.bottomText}>New user?</Text>
             </TouchableHighlight>
           </View>
+=======
+          <Button
+            title="Create a new account"
+            onPress={() => this.props.navigation.navigate('Signup')}
+            buttonStyle={styles.button}
+            titleStyle={{ color: 'navy' }}
+            color='navy'
+          />
+          <CheckBox
+            center
+            title='Remember Me'
+            onPress={this.setRemember}
+            checked={this.state.rememberMe}
+            textStyle={{color: 'navy'}}
+            containerStyle={styles.button}
+            size={12}
+          />
+>>>>>>> [persistance] Adds rememberME button to login screen
         </View>
       </ImageBackground>
     )
