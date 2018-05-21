@@ -53,7 +53,7 @@ export default class SigninScreen extends React.Component {
         style={styles.container}
       >
         <View style={styles.innerContainer}>
-          <Text style={styles.header}>Whatever the fucking name of this app is :D</Text>
+          <Text style={styles.header}>Meditation App</Text>
           <Image style={styles.star} source={star} />
           <TextInput
             style={styles.textInput}
@@ -80,7 +80,12 @@ export default class SigninScreen extends React.Component {
             buttonStyle={styles.button}
             titleStyle={{ color: 'black' }}
             color='navy'
+            bottom='50'
           />
+          <Text style={styles.forgotPassword}>Forgot Password?
+            </Text>
+            <Text style={styles.newAccount}>Create New Account
+            </Text>
           <View style={styles.bottomButtons}>
             <TouchableHighlight>
               <Text style={styles.bottomText}>Forgot password?</Text>
@@ -151,5 +156,13 @@ const styles = StyleSheet.create({
   bottomText: {
     color: 'white',
     textDecorationLine: 'underline'
+  },
+  forgotPassword: {
+    color: 'white',
+    top: 80,
+  },
+  newAccount: {
+    color: 'white',
+    top: 100,
   }
 });

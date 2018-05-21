@@ -15,21 +15,25 @@ import Water from '../screens/Water';
 import Sleep from '../screens/Sleep';
 import Exercise from '../screens/Exercise';
 import Goals from '../screens/Goals';
+import SigninScreen from '../screens/SigninScreen';
+import SignupScreen from '../screens/SignupScreen';
 
 export default TabNavigator(
   {
     Home: {
       screen: StackNavigator(
         {
+          Signin: SigninScreen,
+          SignUp: SignupScreen,
           Home: HomeScreen,
           Journal: JournalScreen,
           Todo: TodoScreen,
-          Settings,
-          Water,
-          Meditations,
-          Sleep,
-          Exercise,
-          Goals
+          Settings: Settings,
+          Water: Water,
+          Meditations: Meditations,
+          Sleep: Sleep,
+          Exercise: Exercise,
+          Goals: Goals
         }
       ),
     },
