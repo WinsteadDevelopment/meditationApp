@@ -103,6 +103,10 @@ export default class HomeScreen extends React.Component {
     //   .catch(err => console.error(err));
   }
 
+  getAdjective() {
+    
+  }
+
   navigateTo(route) {
     this.props.navigation.navigate(route, { date: this.state.date });
   }
