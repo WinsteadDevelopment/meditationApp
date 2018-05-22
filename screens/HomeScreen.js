@@ -114,7 +114,7 @@ export default class HomeScreen extends React.Component {
           onPress={() => this.navigateTo(button.route)}
           style={styles.button}
         >
-          <Ionicons name={button.icon} color='blue' size={40} />
+          <Ionicons name={button.icon} color='#f3e1f7' size={40} />
         </TouchableOpacity>
         <Text style={styles.buttonText}>{button.title}</Text>
       </View>
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   button: {
-    backgroundColor: 'white',
+    backgroundColor: '#c394cc',
     borderRadius: 80,
     height: 60,
     width: 60,
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     position: 'relative'
   },
   buttonText: {
-    color: 'white',
+    color: '#f3e1f7',
   }
 });
  

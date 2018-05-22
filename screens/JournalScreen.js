@@ -5,7 +5,8 @@ import {
   AsyncStorage,
   Text,
   View,
-  StyleSheet
+  StyleSheet,
+  ImageBackground
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import { Button } from 'react-native-elements';
@@ -50,12 +51,35 @@ export default class JournalScreen extends React.Component {
     const date = this.props.navigation.state.params.date;
     console.log(date);
     return (
+      <ImageBackground
+        source={require('../assets/images/milkyWay.jpg')}
+        style={styles.container}
+      >
       <KeyboardAwareScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.heading}>Journal entry for {date.dateString}</Text>
+        <Text style={styles.heading}>What I'm greatful for today</Text>
+        <Text style={styles.heading}>{date.dateString}</Text>
         <TextInput
           multiline={true}
           style={styles.inputField}
-          placeholder="Write your journal entry here"
+          placeholder="I'm grateful for..."
+          onChangeText={(entry) => this.setState({ entry })}
+        />
+        <TextInput
+          multiline={true}
+          style={styles.inputField}
+          placeholder="I'm grateful for..."
+          onChangeText={(entry) => this.setState({ entry })}
+        />
+        <TextInput
+          multiline={true}
+          style={styles.inputField}
+          placeholder="I'm grateful for..."
+          onChangeText={(entry) => this.setState({ entry })}
+        />
+        <TextInput
+          multiline={true}
+          style={styles.inputField}
+          placeholder="I'm grateful for..."
           onChangeText={(entry) => this.setState({ entry })}
         />
         <View style={styles.buttonsContainer}>
@@ -64,13 +88,9 @@ export default class JournalScreen extends React.Component {
             title="Save"
             buttonStyle={styles.button}
           />
-          <Button
-            title="Return home"
-            onPress={() => this.props.navigation.navigate('Main')}
-            buttonStyle={styles.button}
-          />
         </View>
       </KeyboardAwareScrollView>
+      </ImageBackground>
     );
   }
 }
@@ -80,25 +100,29 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 50
+    marginTop: 50,
+    // backgroundColor: '#fff'
   },
   buttonsContainer: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   heading: {
     fontSize: 30,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: '#eac369'
   },
   inputField: {
     height: 'auto',
-    minHeight: 50,
-    alignItems: 'center'
+    minHeight: 75,
+    width: '75%',
+    alignItems: 'center',
+    // color: '#ffffff'
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: '#c394cc',
     borderRadius: 5,
     marginBottom: 5,
     borderRadius: 50
