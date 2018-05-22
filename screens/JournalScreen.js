@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 50,
+    // marginTop: 50,
     // backgroundColor: '#fff'
   },
   buttonsContainer: {
@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 30,
+    marginTop: 25,
     textAlign: 'center',
     color: '#eac369'
   },
