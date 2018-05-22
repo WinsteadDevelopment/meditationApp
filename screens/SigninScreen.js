@@ -14,12 +14,9 @@ import { NavigationActions } from 'react-navigation';
 import axios from 'axios';
 import { server } from '../globalVars';
 import SignupScreen from './SignupScreen';
-<<<<<<< HEAD
 import loginBackground from '../assets/images/loginBackground.jpg';
 import star from '../assets/images/8star.png';
-=======
 import { CheckBox } from 'react-native-elements'
->>>>>>> [persistance] Adds rememberME button to login screen
 
 export default class SigninScreen extends React.Component {
   static navigationOptions = {
@@ -88,14 +85,31 @@ export default class SigninScreen extends React.Component {
             autoCorrect={false}
             secureTextEntry={true}
           />
+              <Button
+                title="Create a new account"
+                onPress={() => this.props.navigation.navigate('Signup')}
+                buttonStyle={styles.button}
+                titleStyle={{ color: 'navy' }}
+                color='navy'
+              />
+            <CheckBox
+              center
+              title='Remember Me'
+              onPress={this.setRemember}
+              checked={this.state.rememberMe}
+              textStyle={{color: 'navy'}}
+              containerStyle={styles.button}
+              size={12}
+              alignItems={{textAlign: "left"}}
+            />
           <Button 
             title="Sign in"
             onPress={this.login}
             buttonStyle={styles.button}
             titleStyle={{ color: 'black' }}
             color='navy'
+            alignItems={{textAlign: "right"}}
           />
-<<<<<<< HEAD
           <View style={styles.bottomButtons}>
             <TouchableHighlight>
               <Text style={styles.bottomText}>Forgot password?</Text>
@@ -104,24 +118,6 @@ export default class SigninScreen extends React.Component {
               <Text style={styles.bottomText}>New user?</Text>
             </TouchableHighlight>
           </View>
-=======
-          <Button
-            title="Create a new account"
-            onPress={() => this.props.navigation.navigate('Signup')}
-            buttonStyle={styles.button}
-            titleStyle={{ color: 'navy' }}
-            color='navy'
-          />
-          <CheckBox
-            center
-            title='Remember Me'
-            onPress={this.setRemember}
-            checked={this.state.rememberMe}
-            textStyle={{color: 'navy'}}
-            containerStyle={styles.button}
-            size={12}
-          />
->>>>>>> [persistance] Adds rememberME button to login screen
         </View>
       </ImageBackground>
     )
