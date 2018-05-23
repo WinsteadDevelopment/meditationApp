@@ -49,7 +49,6 @@ export default class JournalScreen extends React.Component {
 
   render() {
     const date = this.props.navigation.state.params.date;
-    console.log(date);
     return (
       <ImageBackground
         source={require('../assets/images/milkyWay.jpg')}
