@@ -14,7 +14,7 @@ import { NavigationActions } from 'react-navigation';
 import axios from 'axios';
 import { server } from '../globalVars';
 import SignupScreen from './SignupScreen';
-import loginBackground from '../assets/images/loginBackground.jpg';
+import loginBackground from '../assets/images/treeStars.jpg';
 import star from '../assets/images/8star.png';
 import { CheckBox } from 'react-native-elements'
 
@@ -64,7 +64,7 @@ export default class SigninScreen extends React.Component {
         style={styles.container}
       >
         <View style={styles.innerContainer}>
-          <Text style={styles.header}>Whatever the fucking name of this app is :D</Text>
+          <Text style={styles.header}>Meditation App</Text>
           <Image style={styles.star} source={star} />
           <TextInput
             style={styles.textInput}
@@ -110,6 +110,10 @@ export default class SigninScreen extends React.Component {
             color='navy'
             alignItems={{textAlign: "right"}}
           />
+          <Text style={styles.forgotPassword}>Forgot Password?
+            </Text>
+            <Text style={styles.newAccount}>Create New Account
+            </Text>
           <View style={styles.bottomButtons}>
             <TouchableHighlight>
               <Text style={styles.bottomText}>Forgot password?</Text>
@@ -180,5 +184,13 @@ const styles = StyleSheet.create({
   bottomText: {
     color: 'white',
     textDecorationLine: 'underline'
+  },
+  forgotPassword: {
+    color: 'white',
+    top: 80,
+  },
+  newAccount: {
+    color: 'white',
+    top: 100,
   }
 });

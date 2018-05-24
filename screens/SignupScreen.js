@@ -35,7 +35,7 @@ export default class SignupScreen extends React.Component {
   render() {
     return (
       <ImageBackground
-        source={require('../assets/images/loginBackground.jpg')}
+        source={require('../assets/images/treeStars.jpg')}
         style={styles.container}
       >
         <View style={styles.innerContainer}>

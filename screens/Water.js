@@ -1,9 +1,15 @@
 import React from 'react';
-import { ScrollView, Text, StyleSheet, Picker, View } from 'react-native';
+import { 
+  ScrollView, 
+  Text, 
+  StyleSheet, 
+  Picker,
+  ImageBackground 
+} from 'react-native';
 import { Button } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 
-export default class Water extends React.Component {
+export default class Sleep extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -17,12 +23,17 @@ export default class Water extends React.Component {
 
   render() {
     return (
+      <ImageBackground
+        source={require('../assets/images/milkyWay.jpg')}
+        style={styles.container}
+      >
       <ScrollView contentContainerStyle={styles.container}>
-        <Text>How many glasses of water did you have today?</Text>
+        <Text style={styles.heading}>How many glasses of water did you drink?</Text>
         <Picker
-          style={{ width: 100 }}
+          style={styles.picker}
           selectedValue={this.state.selectedValue}
-          onValueChange={selectedValue => this.setState({ selectedValue })}>
+          onValueChange={selectedValue => this.setState({ selectedValue })}
+        >
           <Picker.Item label="0" value='0' />
           <Picker.Item label="1" value='1' />
           <Picker.Item label="2" value='2' />
@@ -39,6 +50,7 @@ export default class Water extends React.Component {
           buttonStyle={styles.button}
         />
       </ScrollView>
+      </ImageBackground>
     )
   }
 }
@@ -46,19 +58,27 @@ export default class Water extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center'
+    flexDirection: 'column',
+    alignItems: 'center',
   },
-  picker: {
-    width: '100%',
-    height: 20
+  heading: {
+    fontSize: 25,
+    marginTop: 200,
+    textAlign: 'center',
+    color: '#eac369'
   },
   button: {
-    backgroundColor: 'blue',
-    borderRadius: 5,
+    backgroundColor: '#c394cc',
+    color: '#f3e1f7',
+    borderRadius: 50,
     marginBottom: 5,
-    borderRadius: 50
+    borderRadius: 50,
+    marginTop: 30,
+  },
+  picker: {
+    width: 100, 
+    color: '#f3e1f7', 
+    backgroundColor: '#c394cc',
+    marginTop: 100, 
   }
 });

@@ -31,19 +31,19 @@ const starImages = [
 
 const buttons = [
   {
-    title: 'Journal',
+    title: 'Gratitude',
     route: 'Journal',
-    icon: 'ios-bookmarks' 
+    icon: 'ios-hand' 
   },
   {
-    title: 'To Do List',
+    title: 'To Do',
     route: 'Todo',
     icon: 'ios-list'
   },
   {
-    title: 'Meditation',
+    title: 'Meditate',
     route: 'Meditations',
-    icon: 'ios-eye'
+    icon: 'ios-man'
   },
   {
     title: 'Water',
@@ -53,12 +53,12 @@ const buttons = [
   {
     title: 'Exercise',
     route: 'Exercise',
-    icon: 'ios-weight'
+    icon: 'ios-heart'
   },
   {
     title: 'Sleep',
     route: 'Sleep',
-    icon: 'ios-bed'
+    icon: 'ios-moon'
   },
   {
     title: 'Goals',
@@ -103,6 +103,10 @@ export default class HomeScreen extends React.Component {
     //   .catch(err => console.error(err));
   }
 
+  getAdjective() {
+    
+  }
+
   navigateTo(route) {
     this.props.navigation.navigate(route, { date: this.state.date });
   }
@@ -114,7 +118,7 @@ export default class HomeScreen extends React.Component {
           onPress={() => this.navigateTo(button.route)}
           style={styles.button}
         >
-          <Ionicons name={button.icon} color='blue' size={60} />
+          <Ionicons name={button.icon} color='#f3e1f7' size={40} />
         </TouchableOpacity>
         <Text style={styles.buttonText}>{button.title}</Text>
       </View>
@@ -125,14 +129,14 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <ImageBackground
-        source={require('../assets/images/milkyWay.jpg')}
+        source={require('../assets/images/gifBackground.gif')}
         style={styles.container}
       >
         <Image
           source={this.state.completions}
           style={styles.starImage}
         />
-        <Text style={styles.welcome}>Welcome, human user</Text>
+        <Text> </Text>
         <View style={styles.buttonsRow}>
           {buttons.slice(0, 3).map(button => this.renderButton(button))}
         </View>
@@ -154,8 +158,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   starImage: {
-    width: 350,
-    height: 350,
+    width: 300,
+    height: 300,
     marginTop: 40
   },
   welcome: {
@@ -172,10 +176,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   button: {
-    backgroundColor: 'white',
+    backgroundColor: '#c394cc',
     borderRadius: 80,
-    height: 80,
-    width: 80,
+    height: 60,
+    width: 60,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
@@ -191,7 +195,8 @@ const styles = StyleSheet.create({
     position: 'relative'
   },
   buttonText: {
-    color: 'white',
+    color: '#f3e1f7',
+    fontSize: 24,
   }
 });
  

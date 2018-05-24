@@ -1,5 +1,13 @@
 import React from 'react';
-import { ScrollView, Text, TextInput, Modal, View, AsyncStorage, StyleSheet } from 'react-native';
+import { 
+  ScrollView, 
+  Text, 
+  TextInput, 
+  Modal, 
+  View, 
+  AsyncStorage, 
+  StyleSheet,
+  ImageBackground, } from 'react-native';
 import { Button } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RoundCheckbox from 'rn-round-checkbox';
@@ -89,6 +97,10 @@ export default class TodoScreen extends React.Component {
       );
     });
     return (
+      <ImageBackground
+        source={require('../assets/images/milkyWay.jpg')}
+        style={styles.container}
+      >
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.todoContainer}>
           <Text style={styles.headingText}>To do list for {this.state.date}:</Text>
@@ -98,11 +110,6 @@ export default class TodoScreen extends React.Component {
           style={{ paddingTop: 20 }}
           title="Create new item"
           onPress={this.toggleModal}
-          buttonStyle={styles.button}
-        />
-        <Button
-          title="Go home"
-          onPress={() => this.props.navigation.navigate('Main')}
           buttonStyle={styles.button}
         />
         <Modal
@@ -131,7 +138,7 @@ export default class TodoScreen extends React.Component {
           </View>
         </Modal>
       </ScrollView>
-
+      </ImageBackground>
     );
   }
 }
@@ -140,20 +147,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    marginTop: 50
+    // marginTop: 50
   },
   eventInput: {
     paddingBottom: 30,
     fontSize: 30
   },
   button: {
-    backgroundColor: 'blue',
-    borderRadius: 5,
+    backgroundColor: '#c394cc',
+    borderRadius: 50,
     marginBottom: 5
   },
   headingText: {
     fontSize: 30,
-    paddingBottom: 20
+    paddingBottom: 20,
+    marginTop: 20,
+    color: '#eac369'
   },
   modalContainer: {
     marginTop: 22,
