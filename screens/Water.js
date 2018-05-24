@@ -28,7 +28,7 @@ export default class Sleep extends React.Component {
         style={styles.container}
       >
       <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.heading}>How many hours did you sleep last night?</Text>
+        <Text style={styles.heading}>How many glasses of water did you drink?</Text>
         <Picker
           style={styles.picker}
           selectedValue={this.state.selectedValue}

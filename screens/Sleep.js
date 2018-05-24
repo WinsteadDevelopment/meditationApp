@@ -1,5 +1,11 @@
 import React from 'react';
-import { ScrollView, Text, StyleSheet, Picker } from 'react-native';
+import { 
+  ScrollView, 
+  Text, 
+  StyleSheet, 
+  Picker,
+  ImageBackground 
+} from 'react-native';
 import { Button } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -17,10 +23,14 @@ export default class Sleep extends React.Component {
 
   render() {
     return (
+      <ImageBackground
+        source={require('../assets/images/milkyWay.jpg')}
+        style={styles.container}
+      >
       <ScrollView contentContainerStyle={styles.container}>
-        <Text>How many hours did you sleep last night??</Text>
+        <Text style={styles.heading}>For how many hours did you sleep?</Text>
         <Picker
-          style={{ width: 100 }}
+          style={styles.picker}
           selectedValue={this.state.selectedValue}
           onValueChange={selectedValue => this.setState({ selectedValue })}
         >
@@ -40,6 +50,7 @@ export default class Sleep extends React.Component {
           buttonStyle={styles.button}
         />
       </ScrollView>
+      </ImageBackground>
     )
   }
 }
@@ -47,15 +58,27 @@ export default class Sleep extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center'
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  heading: {
+    fontSize: 25,
+    marginTop: 200,
+    textAlign: 'center',
+    color: '#eac369'
   },
   button: {
-    backgroundColor: 'blue',
-    borderRadius: 5,
+    backgroundColor: '#c394cc',
+    color: '#f3e1f7',
+    borderRadius: 50,
     marginBottom: 5,
-    borderRadius: 50
+    borderRadius: 50,
+    marginTop: 30,
+  },
+  picker: {
+    width: 100, 
+    color: '#f3e1f7', 
+    backgroundColor: '#c394cc',
+    marginTop: 100, 
   }
 });
