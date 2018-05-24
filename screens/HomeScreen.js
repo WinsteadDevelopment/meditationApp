@@ -129,14 +129,14 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <ImageBackground
-        source={require('../assets/images/milkyWay.jpg')}
+        source={require('../assets/images/gifBackground.gif')}
         style={styles.container}
       >
         <Image
           source={this.state.completions}
           style={styles.starImage}
         />
-        <Text style={styles.welcome}>Welcome, human user</Text>
+        <Text> </Text>
         <View style={styles.buttonsRow}>
           {buttons.slice(0, 3).map(button => this.renderButton(button))}
         </View>
@@ -196,6 +196,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#f3e1f7',
+    fontSize: 24,
   }
 });
  

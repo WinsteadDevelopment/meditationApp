@@ -99,8 +99,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    // marginTop: 50,
-    // backgroundColor: '#fff'
   },
   buttonsContainer: {
     flex: 1,
@@ -123,7 +121,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#c394cc',
-    borderRadius: 5,
+    borderRadius: 50,
     marginBottom: 5,
     borderRadius: 50
   }

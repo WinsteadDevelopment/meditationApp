@@ -108,11 +108,7 @@ export default class SigninScreen extends React.Component {
             buttonStyle={styles.button}
             titleStyle={{ color: 'black' }}
             color='navy'
-<<<<<<< HEAD
-            bottom='50'
-=======
             alignItems={{textAlign: "right"}}
->>>>>>> f349749526ceec3f1ee56ed920fef32236ed787f
           />
           <Text style={styles.forgotPassword}>Forgot Password?
             </Text>

@@ -97,10 +97,10 @@ export default class TodoScreen extends React.Component {
       );
     });
     return (
-      // <ImageBackground
-      //   source={require('../assets/images/milkyWay.jpg')}
-      //   style={styles.container}
-      // >
+      <ImageBackground
+        source={require('../assets/images/milkyWay.jpg')}
+        style={styles.container}
+      >
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.todoContainer}>
           <Text style={styles.headingText}>To do list for {this.state.date}:</Text>
@@ -138,7 +138,7 @@ export default class TodoScreen extends React.Component {
           </View>
         </Modal>
       </ScrollView>
-      // </ImageBackground>
+      </ImageBackground>
     );
   }
 }
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#c394cc',
-    borderRadius: 5,
+    borderRadius: 50,
     marginBottom: 5
   },
   headingText: {
