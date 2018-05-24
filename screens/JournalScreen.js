@@ -113,11 +113,13 @@ const styles = StyleSheet.create({
     color: '#eac369'
   },
   inputField: {
-    height: 'auto',
     minHeight: 75,
-    width: '75%',
+    width: 300,
     alignItems: 'center',
-    // color: '#ffffff'
+    fontSize: 24,
+    color: '#f3e1f7',
+    marginTop: 5,
+    backgroundColor: '#c394cc',
   },
   button: {
     backgroundColor: '#c394cc',
