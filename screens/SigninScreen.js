@@ -85,13 +85,6 @@ export default class SigninScreen extends React.Component {
             autoCorrect={false}
             secureTextEntry={true}
           />
-              <Button
-                title="Create a new account"
-                onPress={() => this.props.navigation.navigate('Signup')}
-                buttonStyle={styles.button}
-                titleStyle={{ color: 'navy' }}
-                color='navy'
-              />
             <CheckBox
               center
               title='Remember Me'
@@ -102,26 +95,31 @@ export default class SigninScreen extends React.Component {
               size={12}
               alignItems={{textAlign: "left"}}
             />
-          <Button 
-            title="Sign in"
-            onPress={this.login}
+            <Button 
+              title="Sign in"
+              onPress={this.login}
+              buttonStyle={styles.button}
+              titleStyle={{ color: 'black' }}
+              color='navy'
+              alignItems={{textAlign: "right"}}
+            />
+          {/* <Button
+            title="Create a new account"
+            onPress={() => this.props.navigation.navigate('Signup')}
             buttonStyle={styles.button}
-            titleStyle={{ color: 'black' }}
+            titleStyle={{ color: 'navy' }}
             color='navy'
-            alignItems={{textAlign: "right"}}
-          />
-          <Text style={styles.forgotPassword}>Forgot Password?
-            </Text>
-            <Text style={styles.newAccount}>Create New Account
-            </Text>
-          <View style={styles.bottomButtons}>
+          /> */}
+          <Text style={styles.forgotPassword}>Forgot Password?</Text>
+          <Text style={styles.forgotPassword}>Create New Account</Text>
+          {/* <View style={styles.bottomButtons}>
             <TouchableHighlight>
               <Text style={styles.bottomText}>Forgot password?</Text>
             </TouchableHighlight>
             <TouchableHighlight onPress={() => this.props.navigation.navigate('Signup')}>
               <Text style={styles.bottomText}>New user?</Text>
             </TouchableHighlight>
-          </View>
+          </View> */}
         </View>
       </ImageBackground>
     )
@@ -142,8 +140,8 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 36,
-    color: 'yellow',
-    textShadowColor: 'red',
+    color: '#eac369',
+    textShadowColor: 'black',
     textShadowOffset: {
       width: -2,
       height: 2
@@ -168,6 +166,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderWidth: 2,
     borderColor: 'black',
+    marginBottom: 40,
   },
   star: {
     width: 275,
@@ -183,11 +182,13 @@ const styles = StyleSheet.create({
   },
   bottomText: {
     color: 'white',
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
+    marginBottom: 10,
   },
   forgotPassword: {
     color: 'white',
-    top: 80,
+    textDecorationLine: 'underline',
+    marginBottom: 20,
   },
   newAccount: {
     color: 'white',
