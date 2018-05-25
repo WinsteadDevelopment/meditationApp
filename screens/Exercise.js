@@ -4,10 +4,13 @@ import {
   Text, 
   StyleSheet, 
   Picker,
-  ImageBackground 
+  ImageBackground,
+  AsyncStorage, 
 } from 'react-native';
 import { Button } from 'react-native-elements';
+import axios from 'axios';
 import { Ionicons } from '@expo/vector-icons';
+import { server } from '../globalVars';
 
 export default class Sleep extends React.Component {
   static navigationOptions = {
@@ -19,6 +22,28 @@ export default class Sleep extends React.Component {
     this.state = {
       selectedValue: '0'
     }
+    this.submitExercise = this.submitExercise.bind(this);
+  }
+
+  submitExercise(){
+    AsyncStorage.getItem('Token')
+      .then(token =>{
+        return axios({
+          method: 'post',
+          url: `${server}/exercise`,
+          headers: {
+            authorization: JSON.parse(token),
+            'Content-Type': 'application/json',
+          },
+          data: { entry: this.state.entry, date: this.props.navigation.state.params.date},
+        });
+      })
+      .then(response =>{
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
   }
 
   render() {
@@ -28,7 +53,7 @@ export default class Sleep extends React.Component {
         style={styles.container}
       >
       <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.heading}>For how many minutes did you exercise?</Text>
+        <Text style={styles.heading}>How many minutes did you exercise?</Text>
         <Picker
           style={styles.picker}
           selectedValue={this.state.selectedValue}
@@ -52,6 +77,7 @@ export default class Sleep extends React.Component {
         <Button
           title="Save"
           buttonStyle={styles.button}
+          onPress={this.submitExercise}
         />
       </ScrollView>
       </ImageBackground>
