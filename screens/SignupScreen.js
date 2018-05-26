@@ -1,5 +1,6 @@
 import React from 'react';
-import { TextInput, View, Text, AsyncStorage, StyleSheet, ImageBackground } from 'react-native';
+import { TextInput, View, Text, AsyncStorage, StyleSheet, ImageBackground} from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 import { Button } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import axios from 'axios';
@@ -12,16 +13,37 @@ export default class SignupScreen extends React.Component {
   
   constructor() {
     super();
+
+    this.inputRefs = {};
+
     this.state = {
       username: '',
       password: '',
       email: '',
+      securityQuestion: '',
+      securityQuestionsList: [
+        {
+          label: 'What is the maiden name of your mother?'
+        },
+        {
+          label: 'What city were you born?'
+        },
+        {
+          label: 'What was the name of your first pet?'
+        },
+        {
+          label: 'What year were you born?'
+        },
+        {
+          label: 'What year did you start to meditate?'
+        }
+      ]
     };
     this.signup = this.signup.bind(this);
   }
 
   signup() {
-    axios.post(`${server}/signup`, { username: this.state.username, password: this.state.password, email: this.state.email })
+    axios.post(`${server}/signup`, { username: this.state.username, password: this.state.password, email: this.state.email, securityQuestion: this.state.securityQuestion, securityAnswer: this.state.securityAnswer })
       .then(res => {
         AsyncStorage.setItem('Token', JSON.stringify(res.data));
         this.props.navigation.navigate('Main');
@@ -57,6 +79,18 @@ export default class SignupScreen extends React.Component {
             placeholder="password"
             value={this.state.password}
             secureTextEntry={true}
+          />
+          <TextInput
+            style={styles.textInput}
+            onChangeText={(securityQuestion) => this.setState({ securityQuestion })}
+            placeholder="Enter a Security Question"
+            value={this.state.securityQuestion}
+          />
+          <TextInput
+            style={styles.textInput}
+            onChangeText={(securityAnswer) => this.setState({ securityAnswer })}
+            placeholder="Enter a Security Question answer"
+            value={this.state.securityAnswer}
           />
           <Button
             buttonStyle={styles.button}
