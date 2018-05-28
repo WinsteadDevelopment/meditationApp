@@ -19,6 +19,11 @@ export default class Sleep extends React.Component {
     this.state = {
       selectedValue: '0'
     }
+    this.save = this.save.bind(this);
+  }
+  
+  save(){
+    console.log('save button');
   }
 
   render() {
@@ -48,6 +53,7 @@ export default class Sleep extends React.Component {
         <Button
           title="Save"
           buttonStyle={styles.button}
+          onPress={this.save}
         />
       </ScrollView>
       </ImageBackground>

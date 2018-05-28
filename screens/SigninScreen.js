@@ -35,16 +35,16 @@ export default class SigninScreen extends React.Component {
   }
 
   setRemember() {
-          this.setState({
-              rememberMe: !this.state.rememberMe
-          });
-      }
+    this.setState({
+        rememberMe: !this.state.rememberMe
+    });
+  }
 
   login(e) {
     e.preventDefault();
     axios.post(`${server}/signin`, { username: this.state.username, password: this.state.password, rememberMe: this.state.rememberMe })
       .then(res => {
-        alert(res.data)
+        // alert(res.data)
         if (res.data !== 'Sorry, that password was incorrect') {
           AsyncStorage.setItem('Token', JSON.stringify(res.data));
           this.props.navigation.navigate('Main');
@@ -69,7 +69,7 @@ export default class SigninScreen extends React.Component {
           <TextInput
             style={styles.textInput}
             onChangeText={(username) => this.setState({ username })}
-            placeholderTextColor='navy'
+            placeholderTextColor='#f3e1f7'
             placeholder="Username"
             value={this.state.username}
             autoCapitalize="none"
@@ -79,47 +79,32 @@ export default class SigninScreen extends React.Component {
             style={styles.textInput}
             onChangeText={(password) => this.setState({ password })}
             placeholder="Password"
-            placeholderTextColor='navy'
+            placeholderTextColor='#f3e1f7'
             value={this.state.password}
             autoCapitalize="none"
             autoCorrect={false}
             secureTextEntry={true}
           />
-            <CheckBox
+            {/* <CheckBox
               center
               title='Remember Me'
               onPress={this.setRemember}
               checked={this.state.rememberMe}
-              textStyle={{color: 'navy'}}
+              textStyle={{color: '#f3e1f7'}}
               containerStyle={styles.button}
               size={12}
               alignItems={{textAlign: "left"}}
-            />
+            /> */}
             <Button 
               title="Sign in"
               onPress={this.login}
-              buttonStyle={styles.button}
+              buttonStyle={styles.signOnButton}
               titleStyle={{ color: 'black' }}
-              color='navy'
+              color='#f3e1f7'
               alignItems={{textAlign: "right"}}
             />
-          {/* <Button
-            title="Create a new account"
-            onPress={() => this.props.navigation.navigate('Signup')}
-            buttonStyle={styles.button}
-            titleStyle={{ color: 'navy' }}
-            color='navy'
-          /> */}
           <Text style={styles.forgotPassword}>Forgot Password?</Text>
           <Text style={styles.forgotPassword}>Create New Account</Text>
-          {/* <View style={styles.bottomButtons}>
-            <TouchableHighlight>
-              <Text style={styles.bottomText}>Forgot password?</Text>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={() => this.props.navigation.navigate('Signup')}>
-              <Text style={styles.bottomText}>New user?</Text>
-            </TouchableHighlight>
-          </View> */}
         </View>
       </ImageBackground>
     )
@@ -134,12 +119,12 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flex: 1,
-    width: '100%',
+    width: '150%',
     alignItems: 'center',
     paddingTop: 50
   },
   header: {
-    fontSize: 36,
+    fontSize: 42,
     color: '#eac369',
     textShadowColor: 'black',
     textShadowOffset: {
@@ -152,25 +137,37 @@ const styles = StyleSheet.create({
   textInput: {
     height: 40,
     borderWidth: 2,
-    borderColor: 'black',
-    width: '90%',
-    backgroundColor: 'rgba(236, 198, 85, 0.5)',
+    borderColor: 'transparent',
+    width: '40%',
+    // backgroundColor: 'rgba(236, 198, 85, 0.5)',
+    borderColor: 'transparent',
     marginBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    color: 'black',
-    textAlign: 'center'
+    color: '#f3e1f7',
+    textAlign: 'center',
   },
   button: {
-    backgroundColor: 'rgba(236, 198, 85, 0.5)',
+    backgroundColor: 'transparent',
     marginBottom: 10,
-    borderWidth: 2,
+    borderWidth: 0,
     borderColor: 'black',
     marginBottom: 40,
+    color: '#f3e1f7',
+  },
+  signOnButton: {
+    backgroundColor: 'transparent',
+    marginBottom: 10,
+    marginTop: 20,
+    borderWidth: 2,
+    borderColor: '#f3e1f7',
+    borderRadius: 50,
+    marginBottom: 40,
+    color: '#f3e1f7',
   },
   star: {
-    width: 275,
-    height: 275,
+    width: 150,
+    height: 150,
     marginBottom: 30
   },
   bottomButtons: {
@@ -181,17 +178,17 @@ const styles = StyleSheet.create({
     width: '90%'
   },
   bottomText: {
-    color: 'white',
+    color: '#f3e1f7',
     textDecorationLine: 'underline',
     marginBottom: 10,
   },
   forgotPassword: {
-    color: 'white',
+    color: '#f3e1f7',
     textDecorationLine: 'underline',
     marginBottom: 20,
   },
   newAccount: {
-    color: 'white',
+    color: '#f3e1f7',
     top: 100,
   }
 });
