@@ -18,7 +18,11 @@
     "react-native-elements": "^0.19.1",
     "react-native-google-signin": "^0.12.0",
     "react-native-keyboard-aware-scrollview": "^2.0.0",
+    "react-native-modal-dropdown": "^0.6.2",
+    "react-native-picker-select": "^3.0.1",
+    "react-native-selectme": "^1.2.3",
     "react-native-settings-list": "^1.8.0",
+    "react-native-tab-view": "0.0.78",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^1.5.12",
     "rn-round-checkbox": "^0.3.4"

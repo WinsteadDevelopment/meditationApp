@@ -14,6 +14,7 @@ import { NavigationActions } from 'react-navigation';
 import axios from 'axios';
 import { server } from '../globalVars';
 import SignupScreen from './SignupScreen';
+import ForgotPassword from './ForgotPassword';
 import loginBackground from '../assets/images/treeStars.jpg';
 import star from '../assets/images/8star.png';
 import { CheckBox } from 'react-native-elements'
@@ -110,6 +111,13 @@ export default class SigninScreen extends React.Component {
             color='navy'
             alignItems={{textAlign: "right"}}
           />
+          <Button
+                title="Forgot Password"
+                onPress={() => this.props.navigation.navigate('ForgotPassword')}
+                buttonStyle={styles.button}
+                titleStyle={{ color: 'navy' }}
+                color='navy'
+              />
           <Text style={styles.forgotPassword}>Forgot Password?
             </Text>
             <Text style={styles.newAccount}>Create New Account
