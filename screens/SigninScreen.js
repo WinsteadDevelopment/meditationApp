@@ -14,7 +14,7 @@ import { NavigationActions } from 'react-navigation';
 import axios from 'axios';
 import { server } from '../globalVars';
 import SignupScreen from './SignupScreen';
-import loginBackground from '../assets/images/treeStars.jpg';
+import loginBackground from '../assets/images/nightPerson.jpg';
 import star from '../assets/images/8star.png';
 import { CheckBox } from 'react-native-elements'
 
@@ -104,7 +104,7 @@ export default class SigninScreen extends React.Component {
               alignItems={{textAlign: "right"}}
             />
           <Text style={styles.forgotPassword}>Forgot Password?</Text>
-          <Text style={styles.forgotPassword}>Create New Account</Text>
+          <Text style={styles.createAccount}>Create New Account</Text>
         </View>
       </ImageBackground>
     )
@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: '#f3e1f7',
     textAlign: 'center',
+    fontSize: 24,
   },
   button: {
     backgroundColor: 'transparent',
@@ -158,7 +159,7 @@ const styles = StyleSheet.create({
   signOnButton: {
     backgroundColor: 'transparent',
     marginBottom: 10,
-    marginTop: 20,
+    marginTop: 80,
     borderWidth: 2,
     borderColor: '#f3e1f7',
     borderRadius: 50,
@@ -186,9 +187,14 @@ const styles = StyleSheet.create({
     color: '#f3e1f7',
     textDecorationLine: 'underline',
     marginBottom: 20,
+    marginTop: 100,
+    fontSize: 18,
   },
-  newAccount: {
+  createAccount: {
     color: '#f3e1f7',
-    top: 100,
-  }
+    textDecorationLine: 'underline',
+    marginBottom: 20,
+    marginTop: 10,
+    fontSize: 18,
+  },
 });

@@ -4,10 +4,13 @@ import {
   Text, 
   StyleSheet, 
   Picker,
-  ImageBackground 
+  ImageBackground,
+  AsyncStorage, 
 } from 'react-native';
 import { Button } from 'react-native-elements';
+import axios from 'axios';
 import { Ionicons } from '@expo/vector-icons';
+import { server } from '../globalVars';
 
 export default class Sleep extends React.Component {
   static navigationOptions = {
@@ -23,7 +26,24 @@ export default class Sleep extends React.Component {
   }
   
   save(){
-    console.log('save button');
+    AsyncStorage.getItem('Token')
+    .then(token =>{
+      return axios({
+        method: 'post',
+        url: `${server}/water`,
+        headers: {
+          authorization: JSON.parse(token),
+          'Content-Type': 'application/json',
+        },
+        data: { entry: this.state.selectedValue, date: this.props.navigation.state.params.date},
+      });
+    })
+    .then(response =>{
+      alert(response.data);
+    })
+    .catch((err) => {
+      alert(err);
+    })
   }
 
   render() {
