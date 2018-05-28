@@ -20,7 +20,8 @@ export default class Sleep extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedValue: '0'
+      selectedValue: '0',
+      previousEntry: '0',
     }
     this.save = this.save.bind(this);
   }
@@ -44,6 +45,18 @@ export default class Sleep extends React.Component {
     .catch((err) => {
       alert(err);
     })
+  }
+
+  componentWillMount() {
+    AsyncStorage.getItem('Token')
+      .then(token => {
+        return axios.get(`${server}/water`, { headers: { authorization: JSON.parse(token) } })
+      })
+      .then(res => {
+        alert(`You have drank ${res.data.entry} glasses today`);
+        // this.setState({previousEntry: res.data.entry});
+      })
+      .catch(err => console.error(err));
   }
 
   render() {
