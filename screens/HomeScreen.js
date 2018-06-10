@@ -52,12 +52,12 @@ const buttons = [
   {
     title: 'Exercise',
     route: 'Exercise',
-    icon: 'ios-weight'
+    icon: 'ios-bicycle'
   },
   {
     title: 'Sleep',
     route: 'Sleep',
-    icon: 'ios-bed'
+    icon: 'ios-cloudy-night'
   },
   {
     title: 'Goals',

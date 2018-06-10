@@ -32,7 +32,6 @@ export default class SigninScreen extends React.Component {
   }
 
   login() {
-    console.log(this.state);
     axios.post('http://af4ec08e.ngrok.io/signup', { username: this.state.username, password: this.state.password })
       .then(res => {
         if (res.data !== 'Sorry, that password was incorrect') {
