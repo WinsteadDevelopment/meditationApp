@@ -24,12 +24,12 @@ export default TabNavigator(
           Home: HomeScreen,
           Journal: JournalScreen,
           Todo: TodoScreen,
-          Settings,
-          Water,
-          Meditations,
-          Sleep,
-          Exercise,
-          Goals
+          Settings: Settings,
+          Water: Water,
+          Meditations: Meditations,
+          Sleep: Sleep,
+          Exercise: Exercise,
+          Goals: Goals,
         }
       ),
     },

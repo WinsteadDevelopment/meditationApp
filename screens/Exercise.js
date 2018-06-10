@@ -1,9 +1,15 @@
 import React from 'react';
-import { ScrollView, Text, StyleSheet, Picker } from 'react-native';
+import { 
+  ScrollView, 
+  Text, 
+  StyleSheet, 
+  Picker,
+  ImageBackground 
+} from 'react-native';
 import { Button } from 'react-native-elements';
 import { Ionicons } from '@expo/vector-icons';
 
-export default class Exercise extends React.Component {
+export default class Sleep extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -17,26 +23,38 @@ export default class Exercise extends React.Component {
 
   render() {
     return (
+      <ImageBackground
+        source={require('../assets/images/milkyWay.jpg')}
+        style={styles.container}
+      >
       <ScrollView contentContainerStyle={styles.container}>
-        <Text>How many minutes did you exercise today?</Text>
+        <Text style={styles.heading}>For how many minutes did you exercise?</Text>
         <Picker
-          style={{ width: 100 }}
+          style={styles.picker}
           selectedValue={this.state.selectedValue}
           onValueChange={selectedValue => this.setState({ selectedValue })}
         >
-          <Picker.Item label='0' value='0' />
-          <Picker.Item label='15' value='15' />
-          <Picker.Item label='30' value='30' />
-          <Picker.Item label='45' value='45' />
-          <Picker.Item label='60' value='60' />
-          <Picker.Item label='75' value='75' />
-          <Picker.Item label='90' value='90' />
+          <Picker.Item label="0" value='0' />
+          <Picker.Item label="5" value='5' />
+          <Picker.Item label="10" value='10' />
+          <Picker.Item label="15" value='15' />
+          <Picker.Item label="20" value='20' />
+          <Picker.Item label="25" value='25' />
+          <Picker.Item label="30" value='30' />
+          <Picker.Item label="35" value='35' />
+          <Picker.Item label="40" value='40' />
+          <Picker.Item label="45" value='45' />
+          <Picker.Item label="50" value='50' />
+          <Picker.Item label="55" value='55' />
+          <Picker.Item label="60" value='60' />
+          <Picker.Item label="60+" value={'60+'} />
         </Picker>
         <Button
           title="Save"
           buttonStyle={styles.button}
         />
       </ScrollView>
+      </ImageBackground>
     )
   }
 }
@@ -44,15 +62,27 @@ export default class Exercise extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center'
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  heading: {
+    fontSize: 25,
+    marginTop: 200,
+    textAlign: 'center',
+    color: '#eac369'
   },
   button: {
-    backgroundColor: 'blue',
-    borderRadius: 5,
+    backgroundColor: '#c394cc',
+    color: '#f3e1f7',
+    borderRadius: 50,
     marginBottom: 5,
-    borderRadius: 50
+    borderRadius: 50,
+    marginTop: 30,
+  },
+  picker: {
+    width: 100, 
+    color: '#f3e1f7', 
+    backgroundColor: '#c394cc',
+    marginTop: 100, 
   }
 });

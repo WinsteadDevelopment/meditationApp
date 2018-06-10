@@ -14,8 +14,10 @@ import { NavigationActions } from 'react-navigation';
 import axios from 'axios';
 import { server } from '../globalVars';
 import SignupScreen from './SignupScreen';
-import loginBackground from '../assets/images/loginBackground.jpg';
+import ForgotPassword from './ForgotPassword';
+import loginBackground from '../assets/images/treeStars.jpg';
 import star from '../assets/images/8star.png';
+import { CheckBox } from 'react-native-elements'
 
 export default class SigninScreen extends React.Component {
   static navigationOptions = {
@@ -26,14 +28,24 @@ export default class SigninScreen extends React.Component {
     super();
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      rememberMe: false,
     };
     this.login = this.login.bind(this);
+    this.setRemember = this.setRemember.bind(this);
   }
 
-  login() {
-    axios.post(`${server}/signin`, { username: this.state.username, password: this.state.password })
+  setRemember() {
+          this.setState({
+              rememberMe: !this.state.rememberMe
+          });
+      }
+
+  login(e) {
+    e.preventDefault();
+    axios.post(`${server}/signin`, { username: this.state.username, password: this.state.password, rememberMe: this.state.rememberMe })
       .then(res => {
+        alert(res.data)
         if (res.data !== 'Sorry, that password was incorrect') {
           AsyncStorage.setItem('Token', JSON.stringify(res.data));
           this.props.navigation.navigate('Main');
@@ -42,7 +54,7 @@ export default class SigninScreen extends React.Component {
         }
       })
       .catch(err => {
-        alert('Sorry, that username/password combination was incorrect');
+        alert(err, 'Sorry, that username/password combination was incorrect');
       })
   }
 
@@ -53,7 +65,7 @@ export default class SigninScreen extends React.Component {
         style={styles.container}
       >
         <View style={styles.innerContainer}>
-          <Text style={styles.header}>Whatever the fucking name of this app is :D</Text>
+          <Text style={styles.header}>Meditation App</Text>
           <Image style={styles.star} source={star} />
           <TextInput
             style={styles.textInput}
@@ -74,13 +86,42 @@ export default class SigninScreen extends React.Component {
             autoCorrect={false}
             secureTextEntry={true}
           />
+              <Button
+                title="Create a new account"
+                onPress={() => this.props.navigation.navigate('Signup')}
+                buttonStyle={styles.button}
+                titleStyle={{ color: 'navy' }}
+                color='navy'
+              />
+            <CheckBox
+              center
+              title='Remember Me'
+              onPress={this.setRemember}
+              checked={this.state.rememberMe}
+              textStyle={{color: 'navy'}}
+              containerStyle={styles.button}
+              size={12}
+              alignItems={{textAlign: "left"}}
+            />
           <Button 
             title="Sign in"
             onPress={this.login}
             buttonStyle={styles.button}
             titleStyle={{ color: 'black' }}
             color='navy'
+            alignItems={{textAlign: "right"}}
           />
+          <Button
+                title="Forgot Password"
+                onPress={() => this.props.navigation.navigate('ForgotPassword')}
+                buttonStyle={styles.button}
+                titleStyle={{ color: 'navy' }}
+                color='navy'
+              />
+          <Text style={styles.forgotPassword}>Forgot Password?
+            </Text>
+            <Text style={styles.newAccount}>Create New Account
+            </Text>
           <View style={styles.bottomButtons}>
             <TouchableHighlight>
               <Text style={styles.bottomText}>Forgot password?</Text>
@@ -151,5 +192,13 @@ const styles = StyleSheet.create({
   bottomText: {
     color: 'white',
     textDecorationLine: 'underline'
+  },
+  forgotPassword: {
+    color: 'white',
+    top: 80,
+  },
+  newAccount: {
+    color: 'white',
+    top: 100,
   }
 });
