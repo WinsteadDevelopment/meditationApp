@@ -63,24 +63,6 @@ export default class JournalScreen extends React.Component {
           placeholder="I'm grateful for..."
           onChangeText={(entry) => this.setState({ entry })}
         />
-        <TextInput
-          multiline={true}
-          style={styles.inputField}
-          placeholder="I'm grateful for..."
-          onChangeText={(entry) => this.setState({ entry })}
-        />
-        <TextInput
-          multiline={true}
-          style={styles.inputField}
-          placeholder="I'm grateful for..."
-          onChangeText={(entry) => this.setState({ entry })}
-        />
-        <TextInput
-          multiline={true}
-          style={styles.inputField}
-          placeholder="I'm grateful for..."
-          onChangeText={(entry) => this.setState({ entry })}
-        />
         <View style={styles.buttonsContainer}>
           <Button
             onPress={this.submitEntry}
@@ -113,7 +95,7 @@ const styles = StyleSheet.create({
     color: '#eac369'
   },
   inputField: {
-    minHeight: 75,
+    minHeight: 100,
     width: 300,
     alignItems: 'center',
     fontSize: 24,

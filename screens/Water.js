@@ -4,10 +4,13 @@ import {
   Text, 
   StyleSheet, 
   Picker,
-  ImageBackground 
+  ImageBackground,
+  AsyncStorage, 
 } from 'react-native';
 import { Button } from 'react-native-elements';
+import axios from 'axios';
 import { Ionicons } from '@expo/vector-icons';
+import { server } from '../globalVars';
 
 export default class Sleep extends React.Component {
   static navigationOptions = {
@@ -17,8 +20,43 @@ export default class Sleep extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedValue: '0'
+      selectedValue: '0',
+      previousEntry: '0',
     }
+    this.save = this.save.bind(this);
+  }
+  
+  save(){
+    AsyncStorage.getItem('Token')
+    .then(token =>{
+      return axios({
+        method: 'post',
+        url: `${server}/water`,
+        headers: {
+          authorization: JSON.parse(token),
+          'Content-Type': 'application/json',
+        },
+        data: { entry: this.state.selectedValue, date: this.props.navigation.state.params.date},
+      });
+    })
+    .then(response =>{
+      alert(response.data);
+    })
+    .catch((err) => {
+      alert(err);
+    })
+  }
+
+  componentDidMount() {
+    AsyncStorage.getItem('Token')
+      .then(token => {
+        return axios.get(`${server}/water`, { headers: { authorization: JSON.parse(token) } })
+      })
+      .then(res => {
+        alert(`You drank ${res.data.entry} glasses today`);
+        // this.setState({previousEntry: res.data.entry});
+      })
+      .catch(err => console.error(err));
   }
 
   render() {
@@ -48,6 +86,7 @@ export default class Sleep extends React.Component {
         <Button
           title="Save"
           buttonStyle={styles.button}
+          onPress={this.save}
         />
       </ScrollView>
       </ImageBackground>
