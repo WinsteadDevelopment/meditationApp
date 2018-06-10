@@ -23,28 +23,54 @@ export default class ForgotPassword extends React.Component {
   constructor() {
     super();
     this.state = {
+        email: '',
         securityQuestion: '',
-        securityAnswer: '',
-        email: ''
+        answer: '',
+        validated: false,
+        newPassword: ''
     };
     this.checkSecurityQuestion = this.checkSecurityQuestion.bind(this)
+    this.checkSecurityAnswer = this.checkSecurityAnswer.bind(this)
+    this.resetPassword = this.resetPassword.bind(this)
   }
-
   checkSecurityQuestion(e) {
     e.preventDefault();
-    axios.post(`${server}/checkSecurityQuestion`, { securityQuestion: this.state.securityQuestion, securityAnswer: this.state.securityAnswer, email: this.state.email })
+    axios.post(`${server}/checkSecurityQuestion`, {email: this.state.email })
       .then(res => {
-        console.log(res.data)
-        if (res.data !== 'security answer wrong') {
-          AsyncStorage.setItem('Token', JSON.stringify(res.data));
-          this.props.navigation.navigate('Main');
-        } else {
-          alert("Security answer wrong, please try again");
+        if(res.data) {
+          this.setState({
+            securityQuestion: res.data
+          })
         }
+        else { console.alert("That user email was not found")}
       })
-      .catch(err => {
-        alert(err, 'Sorry, that security question or answer was incorrect');
+  }
+
+  checkSecurityAnswer(e) {
+    e.preventDefault();
+    axios.post(`${server}/checkSecurityAnswer`, {email: this.state.email, answer: this.state.email })
+      .then(res => {
+        if(res.data === "correct") {
+          this.setState({
+            validated: true
+          })
+        }
+        else { console.alert("That security answer was incorrect")}
       })
+  }
+
+  resetPassword(e) {
+    e.preventDefault();
+    axios.post(`${server}/resetPassword`, {email: this.state.email, newPassword: this.state.newPassword })
+    .then(res => {
+      console.log(res.data, "this is res")
+      if(res.data === "updated") {
+        //// send modal saying updated password, please return to the main page...
+        ///then make the main button work lol
+        console.log("updated password!")
+      }
+      else { console.alert("error, please contacft admin")}
+    })
   }
 
   goBack(e) {
@@ -53,42 +79,98 @@ export default class ForgotPassword extends React.Component {
   }
 
   render() {
-    return (
+      if(this.state.validated){
+        return (
+          <ImageBackground
+          source={require('../assets/images/treeStars.jpg')}
+          style={styles.container}
+        >
+          <View style={styles.innerContainer}>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={(newPassword) => this.setState({ newPassword })}
+              placeholderTextColor='navy'
+              placeholder="Enter New Password"
+              value={this.state.newPassword}
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+            <Button 
+              title="Reset My Password"
+              onPress={this.resetPassword}
+              buttonStyle={styles.button}
+              titleStyle={{ color: 'black' }}
+              color='navy'
+              alignItems={{textAlign: "right"}}
+            />
+            <Button 
+              title="Main"
+              onPress={this.goBack}
+              buttonStyle={styles.button}
+              titleStyle={{ color: 'black' }}
+              color='navy'
+              alignItems={{textAlign: "right"}}
+            />
+          </View>
+        </ImageBackground>
+      )
+      }
+      if(!this.state.securityQuestion){
+        return (
+          <ImageBackground
+          source={require('../assets/images/treeStars.jpg')}
+          style={styles.container}
+        >
+          <View style={styles.innerContainer}>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={(email) => this.setState({ email })}
+              placeholderTextColor='navy'
+              placeholder="Enter Your Email Address"
+              value={this.state.email}
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+            <Button 
+              title="Show me Security Question"
+              onPress={this.checkSecurityQuestion}
+              buttonStyle={styles.button}
+              titleStyle={{ color: 'black' }}
+              color='navy'
+              alignItems={{textAlign: "right"}}
+            />
+            <Button 
+              title="Main"
+              onPress={this.goBack}
+              buttonStyle={styles.button}
+              titleStyle={{ color: 'black' }}
+              color='navy'
+              alignItems={{textAlign: "right"}}
+            />
+          </View>
+        </ImageBackground>
+      )
+    }
+    if(this.state.securityQuestion) {
+      return (
         <ImageBackground
         source={require('../assets/images/treeStars.jpg')}
         style={styles.container}
       >
         <View style={styles.innerContainer}>
-        <TextInput
-            style={styles.textInput}
-            onChangeText={(securityQuestion) => this.setState({ securityQuestion })}
-            placeholderTextColor='navy'
-            placeholder="Your security Question"
-            value={this.state.securityQuestion}
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
+          <Text>{this.state.securityQuestion}</Text>
           <TextInput
             style={styles.textInput}
-            onChangeText={(securityAnswer) => this.setState({ securityAnswer })}
+            onChangeText={(answer) => this.setState({ answer })}
             placeholderTextColor='navy'
-            placeholder="Question Answer"
-            value={this.state.securityAnswer}
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
-          <TextInput
-            style={styles.textInput}
-            onChangeText={(email) => this.setState({ email })}
-            placeholderTextColor='navy'
-            placeholder="Your email address"
-            value={this.state.email}
+            placeholder="Enter Your Answer"
+            value={this.state.answer}
             autoCapitalize="none"
             autoCorrect={false}
           />
           <Button 
-            title="Sign in"
-            onPress={this.checkSecurityQuestion}
+            title="Validate Answer to Security Questionad "
+            onPress={this.checkSecurityAnswer}
             buttonStyle={styles.button}
             titleStyle={{ color: 'black' }}
             color='navy'
@@ -105,6 +187,7 @@ export default class ForgotPassword extends React.Component {
         </View>
       </ImageBackground>
     )
+    }
   }
 }
 

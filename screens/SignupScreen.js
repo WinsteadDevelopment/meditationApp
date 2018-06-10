@@ -43,6 +43,7 @@ export default class SignupScreen extends React.Component {
   }
 
   signup() {
+    console.log("in signup front  end")
     axios.post(`${server}/signup`, { username: this.state.username, password: this.state.password, email: this.state.email, securityQuestion: this.state.securityQuestion, securityAnswer: this.state.securityAnswer })
       .then(res => {
         AsyncStorage.setItem('Token', JSON.stringify(res.data));
