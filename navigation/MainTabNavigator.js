@@ -29,7 +29,7 @@ export default TabNavigator(
           Meditations: Meditations,
           Sleep: Sleep,
           Exercise: Exercise,
-          Goals: Goals
+          Goals: Goals,
         }
       ),
     },

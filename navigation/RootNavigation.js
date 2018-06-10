@@ -5,6 +5,7 @@ import { StackNavigator } from 'react-navigation';
 import MainTabNavigator from './MainTabNavigator';
 import Signin from '../screens/SigninScreen';
 import Signup from '../screens/SignupScreen';
+import ForgotPassword from '../screens/ForgotPassword';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 const RootStackNavigator = StackNavigator(
@@ -17,6 +18,9 @@ const RootStackNavigator = StackNavigator(
     },
     Signup: {
       screen: Signup,
+    },
+    ForgotPassword: {
+      screen: ForgotPassword,
     }
   },
   {

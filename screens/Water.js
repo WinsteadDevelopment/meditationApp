@@ -47,13 +47,13 @@ export default class Sleep extends React.Component {
     })
   }
 
-  componentWillMount() {
+  componentDidMount() {
     AsyncStorage.getItem('Token')
       .then(token => {
         return axios.get(`${server}/water`, { headers: { authorization: JSON.parse(token) } })
       })
       .then(res => {
-        alert(`You have drank ${res.data.entry} glasses today`);
+        alert(`You drank ${res.data.entry} glasses today`);
         // this.setState({previousEntry: res.data.entry});
       })
       .catch(err => console.error(err));
