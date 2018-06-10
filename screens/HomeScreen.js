@@ -15,6 +15,7 @@ import { Button } from 'react-native-elements';
 import { WebBrowser } from 'expo';
 import axios from 'axios';
 import { MonoText } from '../components/StyledText';
+import { server } from '../globalVars';
 
 const starImages = [
   require('../assets/images/0star.png'),

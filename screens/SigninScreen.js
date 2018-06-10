@@ -32,7 +32,7 @@ export default class SigninScreen extends React.Component {
   }
 
   login() {
-    axios.post('http://af4ec08e.ngrok.io/signup', { username: this.state.username, password: this.state.password })
+    axios.post(`${server}/signin`, { username: this.state.username, password: this.state.password })
       .then(res => {
         if (res.data !== 'Sorry, that password was incorrect') {
           AsyncStorage.setItem('Token', JSON.stringify(res.data));
@@ -46,8 +46,6 @@ export default class SigninScreen extends React.Component {
       })
   }
 
-
-  
   render() {
     return (
       <ImageBackground

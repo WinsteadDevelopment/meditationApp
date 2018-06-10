@@ -1,7 +1,8 @@
 import { Constants, Permissions, Notifications } from 'expo';
+import { server } from '../globalVars';
 
 // Example server, implemented in Rails: https://git.io/vKHKv
-const PUSH_ENDPOINT = 'http://fc692c75.ngrok.io/tokens';
+const PUSH_ENDPOINT = `${server}/tokens`;
 
 export default (async function registerForPushNotificationsAsync() {
   // Remote notifications do not work in simulators, only on device

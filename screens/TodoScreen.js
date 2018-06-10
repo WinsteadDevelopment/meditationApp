@@ -1,8 +1,8 @@
 import React from 'react';
 import { ScrollView, Text, TextInput, Modal, View, AsyncStorage, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
-import { NavigationActions } from 'react-navigation'
-import CheckBox from 'react-native-check-box';
+import { NavigationActions } from 'react-navigation';
+import RoundCheckbox from 'rn-round-checkbox';
 import axios from 'axios';
 import { server } from '../globalVars';
 
@@ -22,7 +22,7 @@ export default class TodoScreen extends React.Component {
     };
     this.createTodo = this.createTodo.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
-    this.onClick = this.onClick.bind(this);
+    this.pressCheck = this.pressCheck.bind(this);
   }
 
   componentWillMount() {
@@ -68,20 +68,26 @@ export default class TodoScreen extends React.Component {
     }
   }
 
-  onClick(data) {
-    console.log('checkbox checked', data);
+  pressCheck(bool) {
+    this.setState({ [`isSelected${i}`]: !this.state[`isSelected${i}`] });
+    // make a request to update the completion status of this item in the database
   }
 
-
   render() {
-    const todoList = this.state.todo.map((element, i) => (
-      <CheckBox
-        style={{ flex: 1, padding: 10 }}
-        onClick={(data) => this.onClick(data)}
-        isChecked={false}
-        leftText={element}
-      />
-    ));
+    const todoList = this.state.todo.map((element, i) => {
+      this.state[`isSelected${i}`] = this.state[`isSelected${i}`] || false;
+      return (
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <RoundCheckbox
+            size={24}
+            checked={this.state[`isSelected${i}`]}
+            onValueChange={(newValue) => this.pressCheck(newValue)}
+            style={styles.checkBox}
+          />
+          <Text key={element} style={styles.todo}>{element}</Text>
+        </View>
+      );
+    });
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.todoContainer}>
