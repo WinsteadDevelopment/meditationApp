@@ -53,12 +53,12 @@ const buttons = [
   {
     title: 'Exercise',
     route: 'Exercise',
-    icon: 'ios-heart'
+    icon: 'ios-bicycle'
   },
   {
     title: 'Sleep',
     route: 'Sleep',
-    icon: 'ios-moon'
+    icon: 'ios-cloudy-night'
   },
   {
     title: 'Goals',
@@ -199,4 +199,3 @@ const styles = StyleSheet.create({
     fontSize: 24,
   }
 });
- 
