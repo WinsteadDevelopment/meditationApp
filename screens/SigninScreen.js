@@ -103,6 +103,13 @@ export default class SigninScreen extends React.Component {
               size={12}
               alignItems={{textAlign: "left"}}
             />
+            <Button
+                  title="Forgot Password"
+                  onPress={() => this.props.navigation.navigate('ForgotPassword')}
+                  buttonStyle={styles.button}
+                  titleStyle={{ color: 'navy' }}
+                  color='navy'
+                />
           <Button 
             title="Sign in"
             onPress={this.login}
@@ -111,13 +118,6 @@ export default class SigninScreen extends React.Component {
             color='navy'
             alignItems={{textAlign: "right"}}
           />
-          <Button
-                title="Forgot Password"
-                onPress={() => this.props.navigation.navigate('ForgotPassword')}
-                buttonStyle={styles.button}
-                titleStyle={{ color: 'navy' }}
-                color='navy'
-              />
           <Text style={styles.forgotPassword}>Forgot Password?
             </Text>
             <Text style={styles.newAccount}>Create New Account
