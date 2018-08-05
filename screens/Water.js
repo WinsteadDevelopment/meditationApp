@@ -62,7 +62,7 @@ export default class Sleep extends React.Component {
   render() {
     return (
       <ImageBackground
-        source={require('../assets/images/milkyWay.jpg')}
+        source={require('../assets/images/stream.gif')}
         style={styles.container}
       >
       <ScrollView contentContainerStyle={styles.container}>

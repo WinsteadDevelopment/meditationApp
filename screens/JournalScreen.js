@@ -51,12 +51,12 @@ export default class JournalScreen extends React.Component {
     const date = this.props.navigation.state.params.date;
     return (
       <ImageBackground
-        source={require('../assets/images/milkyWay.jpg')}
+        source={require('../assets/images/stream.gif')}
         style={styles.container}
       >
       <KeyboardAwareScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.heading}>What I'm greatful for today</Text>
-        <Text style={styles.heading}>{date.dateString}</Text>
+        <Text style={styles.title}>What I'm greatful for today</Text>
+        <Text style={styles.date}>{date.dateString}</Text>
         <TextInput
           multiline={true}
           style={styles.inputField}
@@ -88,11 +88,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  heading: {
+  title: {
     fontSize: 30,
-    marginTop: 25,
+    marginTop: 200,
     textAlign: 'center',
-    color: '#eac369'
+    color: '#f3e1f7'
+  },
+  date: {
+    fontSize: 30,
+    marginTop: 20,
+    textAlign: 'center',
+    color: '#f3e1f7'
   },
   inputField: {
     minHeight: 100,

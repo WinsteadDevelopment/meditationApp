@@ -1,5 +1,12 @@
 import React from 'react';
-import { ScrollView, Text, StyleSheet, View } from 'react-native';
+import { 
+  ScrollView, 
+  Text, 
+  StyleSheet, 
+  View,
+  Image, 
+  ImageBackground,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default class Meditations extends React.Component {
@@ -13,26 +20,27 @@ export default class Meditations extends React.Component {
        {'name': '5 MINUTE MEDITATION', 'id': 2},
        {'name': '8 MINUTE MEDITATION', 'id': 3},
        {'name': '60 MINUTE MEDITATION', 'id': 4},
-       {'name': 'MEDITATION MUSIC #1', 'id': 5},
-       {'name': 'MEDITATION MUSIC #2', 'id': 6},
-       {'name': 'MEDITATION MUSIC #3', 'id': 7},
-       {'name': 'MEDITATION MUSIC #4', 'id': 8},
-       {'name': 'MEDITATION MUSIC #5', 'id': 9},
     ]
  }
  render() {
     return (
+      <ImageBackground
+      source={require('../assets/images/mainScreen.gif')}
+      style={styles.container}
+    >
        <View>
           <ScrollView>
              {
                 this.state.names.map((item, index) => (
                    <View key = {item.id} style = {styles.item}>
+                      <Image source={require('../assets/images/meditate.jpg')} style={styles.image}/>
                       <Text>{item.name}</Text>
                    </View>
                 ))
              }
           </ScrollView>
        </View>
+       </ImageBackground>
     )
  }
 }
@@ -65,7 +73,11 @@ const styles = StyleSheet.create({
     borderColor: '#2a4944',
     borderWidth: 1,
     backgroundColor: '#f48d0e',
-  }
+  },
+  image: {
+    width: 200,
+    height: 100,
+  },
   // container: {
   //   flex: 1,
   //   paddingTop: 15,
@@ -76,4 +88,9 @@ const styles = StyleSheet.create({
   // text: {
   //   fontSize: 30,
   // }
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#fff'
+  },
 })
