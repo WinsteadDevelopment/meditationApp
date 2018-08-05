@@ -62,11 +62,11 @@ export default class Sleep extends React.Component {
   render() {
     return (
       <ImageBackground
-        source={require('../assets/images/milkyWay.jpg')}
+        source={require('../assets/images/stream.gif')}
         style={styles.container}
       >
       <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.heading}>How many glasses of water did you drink?</Text>
+        <Text style={styles.headingText}>How many glasses of water did you drink?</Text>
         <Picker
           style={styles.picker}
           selectedValue={this.state.selectedValue}
@@ -100,11 +100,17 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  heading: {
-    fontSize: 25,
-    marginTop: 200,
+  headingText: {
+    fontSize: 50,
+    paddingBottom: 20,
+    marginTop: 80,
+    marginLeft: 10,
+    marginRight: 10,
+    color: '#f3e1f7',
     textAlign: 'center',
-    color: '#eac369'
+    textShadowRadius: 10,
+    textShadowColor: 'black',
+    textShadowOffset: {width: 1, height: 1},
   },
   button: {
     backgroundColor: '#c394cc',

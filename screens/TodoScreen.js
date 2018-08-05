@@ -92,18 +92,19 @@ export default class TodoScreen extends React.Component {
             onValueChange={(newValue) => this.pressCheck(newValue)}
             style={styles.checkBox}
           />
-          <Text key={element} style={styles.todo}>{element}</Text>
+          <Text key={element} style={styles.listItem}>{element}</Text>
         </View>
       );
     });
     return (
       <ImageBackground
-        source={require('../assets/images/milkyWay.jpg')}
+        source={require('../assets/images/rain.gif')}
         style={styles.container}
       >
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.todoContainer}>
-          <Text style={styles.headingText}>To do list for {this.state.date}:</Text>
+          <Text style={styles.headingText}>Your 'To Do' list</Text>
+          <Text style={styles.date}>{this.state.date}</Text>
           {todoList}
         </View>
         <Button
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
   },
   eventInput: {
     paddingBottom: 30,
-    fontSize: 30
+    fontSize: 30,
   },
   button: {
     backgroundColor: 'transparent',
@@ -164,13 +165,26 @@ const styles = StyleSheet.create({
     color: '#f3e1f7',
   },
   headingText: {
-    fontSize: 30,
+    fontSize: 50,
     paddingBottom: 20,
-    marginTop: 20,
-    color: '#eac369'
+    marginTop: 80,
+    color: '#f3e1f7',
+    textAlign: 'center',
+    textShadowRadius: 10,
+    textShadowColor: 'black',
+    textShadowOffset: {width: 1, height: 1},
+  },
+  date: {
+    fontSize: 50,
+    paddingBottom: 20,
+    color: '#f3e1f7',
+    textAlign: 'center',
+    textShadowRadius: 10,
+    textShadowColor: 'black',
+    textShadowOffset: {width: 1, height: 1},
   },
   modalContainer: {
-    marginTop: 22,
+    // marginTop: 22,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
@@ -180,7 +194,12 @@ const styles = StyleSheet.create({
     minHeight: 400,
     // alignItems: 'center'
   },
-  todo: {
-    fontSize: 18
+  listItem: {
+    fontSize: 18,
+    color: '#f3e1f7',
+    textAlign: 'center',
+    textShadowRadius: 10,
+    textShadowColor: 'black',
+    textShadowOffset: {width: 1, height: 1},
   },
 })
