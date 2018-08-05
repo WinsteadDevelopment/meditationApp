@@ -33,6 +33,7 @@ export default class SigninScreen extends React.Component {
     };
     this.login = this.login.bind(this);
     this.setRemember = this.setRemember.bind(this);
+    this.goToSignup = this.goToSignup.bind(this);
   }
 
   setRemember() {
@@ -56,6 +57,10 @@ export default class SigninScreen extends React.Component {
       .catch(err => {
         alert(err, 'Sorry, that username/password combination was incorrect');
       })
+  }
+
+  goToSignup() {
+    this.props.navigation.navigate('Signup');
   }
 
   render() {
@@ -107,10 +112,12 @@ export default class SigninScreen extends React.Component {
                   onPress={() => this.props.navigation.navigate('ForgotPassword')}
                   buttonStyle={styles.button}
                 /> */}
-          <Text style={styles.forgotPassword}>Forgot Password?
-            </Text>
-            <Text style={styles.newAccount}>Create New Account
-            </Text>
+          <Text style={styles.forgotPassword}>
+            Forgot Password?
+          </Text>
+          <Text onPress={this.goToSignup} style={styles.createAccount}>
+            Create New Account
+          </Text>
         </View>
       </ImageBackground>
     )

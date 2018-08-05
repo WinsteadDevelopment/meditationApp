@@ -28,7 +28,7 @@ export default class Sleep extends React.Component {
   
   save(){
     AsyncStorage.getItem('Token')
-    .then(token =>{
+    .then(token => {
       return axios({
         method: 'post',
         url: `${server}/water`,
@@ -39,8 +39,13 @@ export default class Sleep extends React.Component {
         data: { entry: this.state.selectedValue, date: this.props.navigation.state.params.date},
       });
     })
-    .then(response =>{
-      alert(response.data);
+    .then(response => {
+      const data = JSON.parse(response.data);
+      if (response.status === 208) {
+        alert(`You've already reported drinking ${data} glasses today`);
+      } else {
+        alert('Success!');
+      }
     })
     .catch((err) => {
       alert(err);

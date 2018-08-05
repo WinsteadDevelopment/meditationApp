@@ -92,15 +92,14 @@ export default class HomeScreen extends React.Component {
   }
 
   componentWillMount() {
-    // AsyncStorage.getItem('Token')
-    //   .then(token => {
-    //     return axios.get(`${server}/userCompletions`, { headers: { authorization: JSON.parse(token) } })
-    //   })
-    //   .then(res => {
-    //     console.log('response: ', res.data);
-    //     this.setState({completions: starImages[JSON.parse(res.data)]});
-    //   })
-    //   .catch(err => console.error(err));
+    AsyncStorage.getItem('Token')
+      .then(token => {
+        return axios.get(`${server}/userCompletions`, { headers: { authorization: JSON.parse(token) } })
+      })
+      .then(res => {
+        this.setState({completions: starImages[JSON.parse(res.data)]});
+      })
+      .catch(err => console.error(err));
   }
 
   getAdjective() {
