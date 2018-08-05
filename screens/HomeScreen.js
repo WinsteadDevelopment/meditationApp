@@ -129,7 +129,7 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <ImageBackground
-        source={require('../assets/images/gifBackground.gif')}
+        source={require('../assets/images/mainScreen.gif')}
         style={styles.container}
       >
         <Image

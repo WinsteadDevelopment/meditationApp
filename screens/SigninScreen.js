@@ -15,7 +15,7 @@ import axios from 'axios';
 import { server } from '../globalVars';
 import SignupScreen from './SignupScreen';
 import ForgotPassword from './ForgotPassword';
-import loginBackground from '../assets/images/treeStars.jpg';
+import loginBackground from '../assets/images/loginBackground.gif';
 import star from '../assets/images/8star.png';
 import { CheckBox } from 'react-native-elements'
 
@@ -68,7 +68,7 @@ export default class SigninScreen extends React.Component {
           <Text style={styles.header}>Meditation App</Text>
           <Image style={styles.star} source={star} />
           <TextInput
-            style={styles.textInput}
+            style={styles.username}
             onChangeText={(username) => this.setState({ username })}
             placeholderTextColor='#f3e1f7'
             placeholder="Username"
@@ -77,7 +77,7 @@ export default class SigninScreen extends React.Component {
             autoCorrect={false}
           />
           <TextInput
-            style={styles.textInput}
+            style={styles.password}
             onChangeText={(password) => this.setState({ password })}
             placeholder="Password"
             placeholderTextColor='#f3e1f7'
@@ -99,38 +99,18 @@ export default class SigninScreen extends React.Component {
             <Button 
               title="Sign in"
               onPress={this.login}
-              buttonStyle={styles.signOnButton}
-              titleStyle={{ color: 'black' }}
-              color='#f3e1f7'
+              buttonStyle={styles.signInButton}
               alignItems={{textAlign: "right"}}
             />
-            <Button
+            {/* <Button
                   title="Forgot Password"
                   onPress={() => this.props.navigation.navigate('ForgotPassword')}
                   buttonStyle={styles.button}
-                  titleStyle={{ color: 'navy' }}
-                  color='navy'
-                />
-          <Button 
-            title="Sign in"
-            onPress={this.login}
-            buttonStyle={styles.button}
-            titleStyle={{ color: 'black' }}
-            color='navy'
-            alignItems={{textAlign: "right"}}
-          />
+                /> */}
           <Text style={styles.forgotPassword}>Forgot Password?
             </Text>
             <Text style={styles.newAccount}>Create New Account
             </Text>
-          <View style={styles.bottomButtons}>
-            <TouchableHighlight>
-              <Text style={styles.bottomText}>Forgot password?</Text>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={() => this.props.navigation.navigate('Signup')}>
-              <Text style={styles.bottomText}>New user?</Text>
-            </TouchableHighlight>
-          </View>
         </View>
       </ImageBackground>
     )
@@ -160,7 +140,22 @@ const styles = StyleSheet.create({
     textShadowRadius: 3,
     textAlign: 'center'
   },
-  textInput: {
+  username: {
+    height: 60,
+    borderWidth: 2,
+    borderColor: 'transparent',
+    width: '40%',
+    // backgroundColor: 'rgba(236, 198, 85, 0.5)',
+    borderColor: 'transparent',
+    marginBottom: 10,
+    marginTop: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#f3e1f7',
+    textAlign: 'center',
+    fontSize: 24,
+  },
+  password: {
     height: 40,
     borderWidth: 2,
     borderColor: 'transparent',
@@ -168,6 +163,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'rgba(236, 198, 85, 0.5)',
     borderColor: 'transparent',
     marginBottom: 10,
+    marginTop: 30,
     alignItems: 'center',
     justifyContent: 'center',
     color: '#f3e1f7',
@@ -179,13 +175,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderWidth: 0,
     borderColor: 'black',
-    marginBottom: 40,
+    marginBottom: 20,
     color: '#f3e1f7',
   },
-  signOnButton: {
+  signInButton: {
     backgroundColor: 'transparent',
     marginBottom: 10,
-    marginTop: 80,
+    marginTop: 30,
     borderWidth: 2,
     borderColor: '#f3e1f7',
     borderRadius: 50,
@@ -195,7 +191,8 @@ const styles = StyleSheet.create({
   star: {
     width: 150,
     height: 150,
-    marginBottom: 30
+    marginBottom: 30,
+    marginTop: 20,
   },
   bottomButtons: {
     flex: 1,
@@ -204,17 +201,11 @@ const styles = StyleSheet.create({
     marginTop: 150,
     width: '90%'
   },
-  bottomText: {
-    color: '#f3e1f7',
-    textDecorationLine: 'underline',
-    marginBottom: 10,
-  },
   forgotPassword: {
     color: '#f3e1f7',
     textDecorationLine: 'underline',
-    marginBottom: 20,
-    marginTop: 100,
-    fontSize: 18,
+    marginBottom: 10,
+    marginTop: 30,
   },
   createAccount: {
     color: '#f3e1f7',

@@ -154,9 +154,14 @@ const styles = StyleSheet.create({
     fontSize: 30
   },
   button: {
-    backgroundColor: '#c394cc',
+    backgroundColor: 'transparent',
+    marginBottom: 10,
+    marginTop: 30,
+    borderWidth: 2,
+    borderColor: '#f3e1f7',
     borderRadius: 50,
-    marginBottom: 5
+    marginBottom: 40,
+    color: '#f3e1f7',
   },
   headingText: {
     fontSize: 30,
