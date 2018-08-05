@@ -103,7 +103,7 @@ export default class TodoScreen extends React.Component {
       >
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.todoContainer}>
-          <Text style={styles.headingText}>Your 'To Do' list for</Text>
+          <Text style={styles.headingText}>Your 'To Do' list</Text>
           <Text style={styles.date}>{this.state.date}</Text>
           {todoList}
         </View>

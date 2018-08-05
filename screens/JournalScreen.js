@@ -51,11 +51,11 @@ export default class JournalScreen extends React.Component {
     const date = this.props.navigation.state.params.date;
     return (
       <ImageBackground
-        source={require('../assets/images/stream.gif')}
+        source={require('../assets/images/waterfall.gif')}
         style={styles.container}
       >
       <KeyboardAwareScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.title}>What I'm greatful for today</Text>
+        <Text style={styles.headingText}>I'm greatful for...</Text>
         <Text style={styles.date}>{date.dateString}</Text>
         <TextInput
           multiline={true}
@@ -82,41 +82,48 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  headingText: {
+    fontSize: 50,
+    paddingBottom: 20,
+    marginTop: 80,
+    color: '#f3e1f7',
+    textAlign: 'center',
+    textShadowRadius: 10,
+    textShadowColor: 'black',
+    textShadowOffset: {width: 1, height: 1},
+  },
   buttonsContainer: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-  title: {
-    fontSize: 30,
-    marginTop: 200,
-    textAlign: 'center',
-    color: '#f3e1f7'
+    color: '#c394cc',
   },
   date: {
-    fontSize: 30,
-    marginTop: 20,
+    fontSize: 50,
+    paddingBottom: 20,
+    color: '#f3e1f7',
     textAlign: 'center',
-    color: '#f3e1f7'
+    textShadowRadius: 10,
+    textShadowColor: 'black',
+    textShadowOffset: {width: 1, height: 1},
   },
   inputField: {
     minHeight: 100,
     width: 300,
     alignItems: 'center',
     fontSize: 24,
-    color: '#f3e1f7',
+    color: 'white',
     marginTop: 5,
-    backgroundColor: '#c394cc',
+    backgroundColor: 'transparent',
   },
   button: {
-    backgroundColor: 'transparent',
+    backgroundColor: '#f3e1f7',
     marginBottom: 10,
     marginTop: 30,
     borderWidth: 2,
-    borderColor: '#f3e1f7',
+    borderColor: '#c394cc',
     borderRadius: 50,
     marginBottom: 40,
-    color: '#f3e1f7',
   },
 })

@@ -1,19 +1,20 @@
 import React from 'react';
-import {
-  ScrollView,
-  TextInput,
-  AsyncStorage,
-  Text,
-  View,
+import { 
+  ScrollView, 
+  Text, 
+  TextInput, 
+  Modal, 
+  View, 
+  AsyncStorage, 
   StyleSheet,
-  ImageBackground
-} from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
+  ImageBackground, } from 'react-native';
 import { Button } from 'react-native-elements';
+import { NavigationActions } from 'react-navigation';
+import RoundCheckbox from 'rn-round-checkbox';
 import axios from 'axios';
 import { server } from '../globalVars';
 
-export default class JournalScreen extends React.Component {
+export default class Goals extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -21,73 +22,123 @@ export default class JournalScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      entry: '',
+      todo: [],
+      input: '',
+      modalVisible: false,
+      date: this.props.navigation.state.params.date.dateString,
+      isSelected: true
     };
-    this.submitEntry = this.submitEntry.bind(this);
+    this.createTodo = this.createTodo.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.pressCheck = this.pressCheck.bind(this);
   }
 
-  submitEntry() {
+  componentWillMount() {
     AsyncStorage.getItem('Token')
-      .then(token =>{
-        return axios({
-          method: 'post',
-          url: `${server}/journal`,
-          headers: {
-            authorization: JSON.parse(token),
-            'Content-Type': 'application/json',
-          },
-          data: { entry: this.state.entry, date: this.props.navigation.state.params.date},
-        });
+      .then(token => {
+        return axios.get(`${server}/todo`, { headers: { Authorization: JSON.parse(token), date: this.state.date } });
       })
-      .then(response =>{
-        console.log(response.data);
+      .then(res => {
+        const newTodos = res.data.map(obj => obj.item);
+        return this.setState({ todo: this.state.todo.concat(newTodos) });
       })
-      .catch((err) => {
-        console.error(err);
-      })
+      .catch(err => console.log(err));
+  }
+
+  toggleModal() {
+    this.setState({ modalVisible: !this.state.modalVisible });
+  }
+
+  createTodo() {
+    if (!this.state.todo.includes(this.state.input)) {
+      this.setState({ todo: this.state.todo.concat(this.state.input)})
+      AsyncStorage.getItem('Token')
+        .then(token => {
+          return axios({
+            method: 'post',
+            url: `${server}/todo`,
+            headers: {
+              authorization: JSON.parse(token),
+              'Content-Type': 'application/json',
+            },
+            data: {
+              todo: this.state.input,
+              date: this.state.date,
+            },
+          });
+        })
+        .then((res) => {
+          this.toggleModal();
+        })
+        .catch((err) => console.log(err));
+    } else {
+      alert('You already have that in your to do list');
+    }
+  }
+
+  pressCheck(bool) {
+    this.setState({ [`isSelected${i}`]: !this.state[`isSelected${i}`] });
+    // make a request to update the completion status of this item in the database
   }
 
   render() {
-    const date = this.props.navigation.state.params.date;
+    const todoList = this.state.todo.map((element, i) => {
+      this.state[`isSelected${i}`] = this.state[`isSelected${i}`] || false;
+      return (
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <RoundCheckbox
+            size={24}
+            checked={this.state[`isSelected${i}`]}
+            onValueChange={(newValue) => this.pressCheck(newValue)}
+            style={styles.checkBox}
+          />
+          <Text key={element} style={styles.listItem}>{element}</Text>
+        </View>
+      );
+    });
     return (
       <ImageBackground
-        source={require('../assets/images/milkyWay.jpg')}
+        source={require('../assets/images/waterfall.gif')}
         style={styles.container}
       >
-      <KeyboardAwareScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.heading}>My Goals</Text>
-        <TextInput
-          multiline={true}
-          style={styles.inputField}
-          placeholder="I want to..."
-          onChangeText={(entry) => this.setState({ entry })}
-        />
-        <TextInput
-          multiline={true}
-          style={styles.inputField}
-          placeholder="I want to..."
-          onChangeText={(entry) => this.setState({ entry })}
-        />
-        <TextInput
-          multiline={true}
-          style={styles.inputField}
-          placeholder="I want to..."
-          onChangeText={(entry) => this.setState({ entry })}
-        />
-        <TextInput
-          multiline={true}
-          style={styles.inputField}
-          placeholder="I want to..."
-          onChangeText={(entry) => this.setState({ entry })}
-        />
-        <View style={styles.buttonsContainer}>
-          <Button
-            onPress={this.submitEntry}
-            title="Save"
-            buttonStyle={styles.button}
-          />
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.todoContainer}>
+          <Text style={styles.headingText}>My Goals</Text>
+          <Text style={styles.date}>{this.state.date}</Text>
+          {todoList}
         </View>
-      </KeyboardAwareScrollView>
+        <Button
+          style={{ paddingTop: 20 }}
+          title="Save"
+          onPress={this.toggleModal}
+          buttonStyle={styles.button}
+        />
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+        >
+          <View style={styles.modalContainer}>
+            <View>
+              <TextInput
+                placeholder="Enter your task"
+                onChangeText={(text) => this.setState({ input: text })}
+                style={styles.eventInput}
+              />
+              <Button
+                title="Save event"
+                onPress={this.createTodo}
+                buttonStyle={styles.button}
+              />
+              <Button
+                title="Close"
+                onPress={this.toggleModal}
+                buttonStyle={styles.button}
+              />
+            </View>
+          </View>
+        </Modal>
+      </ScrollView>
       </ImageBackground>
     );
   }
@@ -96,35 +147,59 @@ export default class JournalScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
     alignItems: 'center',
+    // marginTop: 50
   },
-  buttonsContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  heading: {
+  eventInput: {
+    paddingBottom: 30,
     fontSize: 30,
-    marginTop: 25,
-    marginBottom: 100,
-    textAlign: 'center',
-    color: '#eac369'
-  },
-  inputField: {
-    minHeight: 75,
-    width: 300,
-    alignItems: 'center',
-    fontSize: 24,
-    color: '#f3e1f7',
-    marginTop: 5,
-    backgroundColor: '#c394cc',
   },
   button: {
-    backgroundColor: '#c394cc',
+    backgroundColor: 'transparent',
+    marginBottom: 10,
+    marginTop: 30,
+    borderWidth: 2,
+    borderColor: '#f3e1f7',
     borderRadius: 50,
-    marginBottom: 5,
-    borderRadius: 50
-  }
+    marginBottom: 40,
+    color: '#f3e1f7',
+  },
+  headingText: {
+    fontSize: 50,
+    paddingBottom: 20,
+    marginTop: 80,
+    color: '#f3e1f7',
+    textAlign: 'center',
+    textShadowRadius: 10,
+    textShadowColor: 'black',
+    textShadowOffset: {width: 1, height: 1},
+  },
+  date: {
+    fontSize: 50,
+    paddingBottom: 20,
+    color: '#f3e1f7',
+    textAlign: 'center',
+    textShadowRadius: 10,
+    textShadowColor: 'black',
+    textShadowOffset: {width: 1, height: 1},
+  },
+  modalContainer: {
+    // marginTop: 22,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  todoContainer: {
+    height: 'auto',
+    minHeight: 400,
+    // alignItems: 'center'
+  },
+  listItem: {
+    fontSize: 18,
+    color: '#f3e1f7',
+    textAlign: 'center',
+    textShadowRadius: 10,
+    textShadowColor: 'black',
+    textShadowOffset: {width: 1, height: 1},
+  },
 })
