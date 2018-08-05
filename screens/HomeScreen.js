@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     position: 'relative'
   },
   buttonText: {
-    color: '#f3e1f7',
+    color: 'white',
     fontSize: 24,
   }
 });
