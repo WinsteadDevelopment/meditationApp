@@ -10,7 +10,8 @@ import {
 import { Button } from 'react-native-elements';
 import axios from 'axios';
 import { Ionicons } from '@expo/vector-icons';
-import { server } from '../globalVars';
+
+const server = process.env.SERVER;
 
 export default class Sleep extends React.Component {
   static navigationOptions = {

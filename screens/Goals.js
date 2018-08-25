@@ -12,7 +12,7 @@ import { Button } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RoundCheckbox from 'rn-round-checkbox';
 import axios from 'axios';
-import { server } from '../globalVars';
+const server = process.env.SERVER;
 
 export default class Goals extends React.Component {
   static navigationOptions = {

@@ -12,7 +12,8 @@ import {
 import { Button } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import axios from 'axios';
-import { server } from '../globalVars';
+const server = process.env.SERVER;
+
 import SignupScreen from './SignupScreen';
 import ForgotPassword from './ForgotPassword';
 import loginBackground from '../assets/images/loginBackground.gif';

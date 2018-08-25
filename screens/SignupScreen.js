@@ -4,7 +4,8 @@ import RNPickerSelect from 'react-native-picker-select';
 import { Button } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import axios from 'axios';
-import { server } from '../globalVars';
+
+const server = process.env.SERVER;
 
 export default class SignupScreen extends React.Component {
   static navigationOptions = {

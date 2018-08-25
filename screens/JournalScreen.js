@@ -11,7 +11,8 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import { Button } from 'react-native-elements';
 import axios from 'axios';
-import { server } from '../globalVars';
+
+const server = process.env.SERVER;
 
 export default class JournalScreen extends React.Component {
   static navigationOptions = {

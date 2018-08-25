@@ -1,5 +1,5 @@
 import { Constants, Permissions, Notifications } from 'expo';
-import { server } from '../globalVars';
+const server = process.env.SERVER;
 
 // Example server, implemented in Rails: https://git.io/vKHKv
 const PUSH_ENDPOINT = `${server}/tokens`;
